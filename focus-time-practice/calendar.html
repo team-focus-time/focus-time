@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- If you set this content to your OAuth Client ID, users can connect with one click -->
+  <meta name="google-client-id" content="465285794557-k5ppj5jd4n8ltul59v5i66rhtkplij0r.apps.googleusercontent.com">
+  <title>FocusTime — 캘린더</title>
+  <link rel="stylesheet" href="styles.css">
+  <!-- FullCalendar CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.css" rel="stylesheet" />
+  <style>
+    .cal-shell{display:grid; grid-template-rows:auto auto 1fr; gap:10px; height:100dvh; padding:14px}
+    .cal-toolbar{display:flex; gap:8px; align-items:center; justify-content:space-between}
+    .row{display:flex; gap:8px; align-items:center; flex-wrap:wrap}
+    .input, .btn{font-size:14px}
+    #calendar{background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.08); border-radius:10px; padding:6px}
+    .src-badge{display:inline-flex; align-items:center; gap:6px; padding:4px 8px; border:1px solid rgba(255,255,255,.15); border-radius:999px; background:rgba(255,255,255,.06); color:#e6edff}
+    .src-badge button{border:none; background:transparent; color:#ef9ca9; cursor:pointer}
+  </style>
+</head>
+<body>
+  <a id="btn-home" class="fab" href="index.html" title="홈">🏠</a>
+  <div class="container cal-shell">
+    <h1 class="title" style="margin:0">캘린더</h1>
+
+    <div class="cal-toolbar">
+      <div class="row">
+        <button class="btn" data-cal="today">오늘</button>
+        <button class="btn" data-cal="prev">〈</button>
+        <button class="btn" data-cal="next">〉</button>
+        <select class="input" id="viewSel">
+          <option value="timeGridDay">일일</option>
+          <option value="threeDay">3일</option>
+          <option value="timeGridWeek" selected>주간</option>
+          <option value="twoWeeks">2주</option>
+          <option value="dayGridMonth">월간</option>
+          <option value="multiMonthThree">3개월</option>
+          <option value="listWeek">일정(주간)</option>
+        </select>
+      </div>
+      <div class="row">
+    <div class="row" id="gloginRow">
+  <input id="gClientId" class="input" placeholder="OAuth Client ID (예: 1234567890-xxxx.apps.googleusercontent.com)" title="이메일이 아니라 .apps.googleusercontent.com 으로 끝나는 OAuth Client ID를 넣으세요" style="width:360px">
+    <button class="btn" id="btn-g-login">Google 캘린더 연동</button>
+          <button class="btn" id="btn-g-logout" disabled>로그아웃</button>
+        </div>
+        <form id="form-ics" class="row" onsubmit="return false;">
+          <input id="icsUrl" class="input" placeholder="ICS URL (공개 캘린더)" style="width:280px">
+          <button class="btn" id="btn-add-ics">ICS 추가</button>
+        </form>
+        <form id="form-gcal" class="row" onsubmit="return false;">
+          <input id="gapiKey" class="input" placeholder="Google API Key" style="width:180px">
+          <input id="gcalId" class="input" placeholder="Calendar ID (공개)" style="width:220px">
+          <button class="btn" id="btn-add-gcal">Google 캘린더 추가</button>
+        </form>
+      </div>
+    </div>
+
+    <div class="row" id="sourcesRow"></div>
+    <div class="row" id="gcalPick" style="margin-top:4px"></div>
+
+    <div id="calendar"></div>
+  </div>
+
+  <!-- FullCalendar JS -->
+  <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/icalendar@6.1.15/index.global.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/google-calendar@6.1.15/index.global.min.js"></script>
+    <!-- Google Identity Services & gapi -->
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <script src="https://apis.google.com/js/api.js"></script>
+  <script src="calendar.js"></script>
+</body>
+</html>
