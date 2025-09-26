@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TIMER</title>
+    <link rel="stylesheet" href="Timer.css" />
+  </head>
+  <body>
+    <nav class="nav-bar">
+      <div class="logo">Focus Time</div>
+      <ul>
+        <li>
+          <a href="../stopwatch/StopWatch.html"
+            ><i class="fa-solid fa-stopwatch"></i
+          ></a>
+        </li>
+        <li>
+          <a href="../timer/Timer.html"
+            ><i class="fa-solid fa-hourglass"></i
+          ></a>
+        </li>
+        <li>
+          <a href="#"><i class="fa-solid fa-list"></i></a>
+        </li>
+        <li>
+          <a href="#"><i class="fa-solid fa-chart-simple"></i></a>
+        </li>
+        <li>
+          <a href="#"><i class="fa-solid fa-circle-user"></i></a>
+        </li>
+      </ul>
+    </nav>
+    <div class="container">
+      <div class="setting-timer">
+        <h1>TIMER</h1>
+        <div>
+          <input
+            type="number"
+            id="minute-input"
+            placeholder="Set the Minutes"
+            min="1"
+            max="60"
+          /><button id="set-time">TIME SET</button>
+        </div>
+      </div>
+      <div id="alarm-notification" class="notification">
+        <div class="alarm-box">
+          <p>Time's up!</p>
+          <button id="stop-alarm">확인</button>
+        </div>
+      </div>
+      <div class="main-container">
+        <div class="timer-set" id="timer">30:00</div>
+        <div class="timer-buttons">
+          <button id="start">START</button>
+          <button id="stop">STOP</button>
+          <button id="reset">RESET</button>
+        </div>
+      </div>
+      <div class="stopwatch-btn">
+        <button id="stopwatch-page">
+          Stopwatch <i class="fa-solid fa-play"></i>
+        </button>
+      </div>
+    </div>
+    <footer></footer>
+    <script
+      src="https://kit.fontawesome.com/7a65e83fda.js"
+      crossorigin="anonymous"
+    ></script>
+
+    <script src="Timer.js"></script>
+  </body>
+</html>
