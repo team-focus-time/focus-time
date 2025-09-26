@@ -3,21 +3,59 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="./style.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link rel="stylesheet" href="TodoList.css" />
     <title>Document</title>
   </head>
   <body>
-    <div class="header">
-      <button id="prev-button">&lt;</button>
-      <h2 id="current-date"></h2>
-      <button id="next-button">&gt;</button>
-    </div>
-    <ul id="list"></ul>
+    <div>
+      <div id="container">
+        <!-- 메인 화면 -->
+        <div id="header">
+          <div>
+            <button class="close-btn">
+              <i class="fa-solid fa-xmark fa-sm"></i>
+            </button>
+          </div>
+        </div>
+        <div id="middle">
+          <div id="task-board">
+            <div id="date">
+              <button id="prev-btn"><i class="fa-solid fa-angle-left"></i></button>
+              <h2 id="current-date"></h2>
+              <button id="next-btn"><i class="fa-solid fa-angle-right"></i></button>
+            </div>
+            <!-- 등록된 테스크 보여주기-->
+            <div id="task-list">
+              <section>
+                <div>
+                  <label><input class="check-task" type="checkbox" />청소하기</label>
+                  <button id="edit-btn"><i class="fa-solid fa-pen-to-square"></i></button>
+                  <button id="delete-btn"><i class="fa-solid fa-trash"></i></button>
+                </div>
+              </section>
+              <section>
+                <div>
+                  <label><input class="check-task" type="checkbox" />빨래하기</label>
+                  <button id="edit-btn"><i class="fa-solid fa-pen-to-square"></i></button>
+                  <button id="delete-btn"><i class="fa-solid fa-trash"></i></button>
+                </div>
+              </section>
+            </div>
 
-    <div id="add">
-      <button id="add-button">+</button>
+            <!-- 테스크 등록 -->
+            <div id="task-form" class="hidden-form">
+              <button id="form-prev-btn"><i class="fa-solid fa-angle-left"></i></button>
+              <h2 id="form-current-date"></h2>
+              <button id="form-next-btn"><i class="fa-solid fa-angle-right"></i></button>
+            </div>
+          </div>
+        </div>
+        <div id="footer">
+          <button id="add-btn"><i class="fa-solid fa-plus"></i></button>
+        </div>
+      </div>
     </div>
-
     <script src="TodoList.js"></script>
   </body>
 </html>
