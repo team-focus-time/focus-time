@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Focus time</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app">
+    <!-- 좌측: 타이머 -->
+    <aside class="left">
+      <header class="left-header">Focus time</header>
+      <div class="timer-box">
+        <div id="timer" class="timer">00:00</div>
+        <button id="btnStart" class="btn">start</button>
+      </div>
+      <div class="left-footer">
+        <button class="pill">timer ▸</button>
+      </div>
+    </aside>
+
+    <!-- 우측: 대시보드 -->
+    <main class="right">
+      <div class="topbar">
+        <div class="icons">
+          <!-- 목록 아이콘 -->
+          <span class="icon">
+            <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+              <circle cx="6" cy="7" r="2" fill="#222"/>
+              <rect x="11" y="6" width="11" height="2" rx="1" fill="#222"/>
+              <circle cx="6" cy="14" r="2" fill="#222"/>
+              <rect x="11" y="13" width="11" height="2" rx="1" fill="#222"/>
+              <circle cx="6" cy="21" r="2" fill="#222"/>
+              <rect x="11" y="20" width="11" height="2" rx="1" fill="#222"/>
+            </svg>
+          </span>
+          <!-- 통계 아이콘 -->
+          <span class="icon">
+            <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+              <rect x="5" y="15" width="4" height="8" rx="2" fill="#222"/>
+              <rect x="12" y="9" width="4" height="14" rx="2" fill="#222"/>
+              <rect x="19" y="5" width="4" height="18" rx="2" fill="#222"/>
+            </svg>
+          </span>
+          <!-- 프로필 아이콘 -->
+          <span class="icon">
+            <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+              <circle cx="14" cy="12" r="5" stroke="#222" stroke-width="2"/>
+              <path d="M6 23c0-4 4-6 8-6s8 2 8 6" stroke="#222" stroke-width="2" fill="none"/>
+            </svg>
+          </span>
+        </div>
+        <button class="close-btn" title="닫기">×</button>
+      </div>
+      <section id="calendarGrid" class="calendar-grid" aria-label="연간 히스토리 달력"></section>
+    </main>
+  </div>
+  <script src="app.js"></script>
+</body>
+</html>
