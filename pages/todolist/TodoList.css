@@ -1,0 +1,80 @@
+#next-btn,
+#prev-btn,
+#form-next-btn,
+#form-prev-btn,
+.close-btn,
+#edit-btn,
+#delete-btn,
+#add-btn {
+  background: none;
+  border: 0;
+  color: #0a1a4f;
+  cursor: pointer;
+}
+
+#date,
+#task-form {
+  display: flex;
+  justify-content: center;
+}
+
+/*체크박스 기본 스타일 제거 및 원형 테두리 설정 */
+input.check-task {
+  /* 브라우저 기본 스타일 제거 */
+  -webkit-appearance: none;
+  appearance: none;
+
+  /* 크기 설정 (원형을 위해 너비와 높이를 같게) */
+  width: 15px;
+  height: 15px;
+
+  /* 원형 테두리 */
+  border: 2px solid #ccc; /* 기본 테두리 색상 */
+  border-radius: 50%;
+  background-color: white; /* 내부 배경색 */
+
+  /* V자 표시를 중앙에 위치시키기 위한 설정 */
+  display: grid;
+  place-content: center;
+
+  cursor: pointer;
+  margin: 0 5px 0 0; /* 라벨 텍스트와의 간격 */
+  vertical-align: middle;
+  flex-shrink: 0; /* flex 컨테이너에서 크기가 줄어들지 않도록 */
+}
+
+/* 2. 체크되었을 때 스타일: 테두리 색상 변경 */
+input.check-task:checked {
+  border-color: lightgrey; /* 파란색 테두리 */
+}
+
+/* 3. 체크되었을 때 커스텀 V자 모양 구현 */
+input.check-task:checked::before {
+  content: "";
+  display: block;
+  width: 4px;
+  height: 8px;
+
+  /* V자 모양을 만들기 위한 테두리 설정 */
+  border: solid #007bff; /* 체크 표시 색상 */
+  border-width: 0 2px 2px 0; /* 아래쪽과 오른쪽 테두리만 남김 */
+
+  /* V자 모양이 되도록 회전 및 위치 조정 */
+  transform: translateY(-1px) rotate(45deg);
+}
+
+/* 추가 스타일: 전체적인 레이아웃 정렬 */
+#task-list section div {
+  display: flex;
+  align-items: center; /* 내부 요소(체크박스, 텍스트, 버튼) 수직 중앙 정렬 */
+  gap: 10px; /* 요소들 간의 간격 설정 */
+  padding: 10px;
+  border-bottom: 1px solid #eee;
+}
+
+#task-list label {
+  display: flex; /* input과 텍스트를 정렬 */
+  align-items: center;
+  flex-grow: 1; /* 남은 공간을 차지하도록 하여 버튼과 분리 */
+  cursor: pointer;
+}
