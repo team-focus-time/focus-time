@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>FocusTime — Practice</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+  </head>
+  <body>
+    <a id="btn-dashboard" class="fab" href="dashboard.html" title="대시보드">📊</a>
+    <div class="container">
+      <h1 class="title">FocusTime — Practice</h1>
+
+  <section class="card glass" id="timer">
+        <div class="row wrap" style="align-items:center; gap:8px">
+          <button class="mode active" data-mode="focus">Focus</button>
+          <button class="mode" data-mode="short">Short</button>
+          <button class="mode" data-mode="long">Long</button>
+          <label class="input" style="margin-left:auto; display:inline-flex; align-items:center; gap:6px">
+            시간(분)
+            <input id="mode-min" type="number" min="1" max="180" step="1" value="25" style="width:80px">
+          </label>
+        </div>
+        <div class="timer-visual">
+          <svg class="ring" viewBox="0 0 220 220" aria-hidden="true">
+            <defs>
+              <linearGradient id="ringGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" style="stop-color: var(--accent);"/>
+                <stop offset="100%" style="stop-color: var(--accent2);"/>
+              </linearGradient>
+            </defs>
+            <circle class="ring-bg" cx="110" cy="110" r="100"></circle>
+            <circle class="ring-progress" cx="110" cy="110" r="100" stroke="url(#ringGrad)"></circle>
+          </svg>
+          <div class="time" id="time-display">25:00</div>
+        </div>
+        <div class="timer-actions">
+          <button class="btn mini" id="btn-bg">배경 변경</button>
+          <button class="btn mini ghost" id="btn-bg-reset">배경 초기화</button>
+          <div class="bg-presets">
+            <button class="chip" data-bg-key="forest">숲</button>
+            <button class="chip" data-bg-key="city">도시</button>
+            <button class="chip" data-bg-key="ocean">바다</button>
+            <button class="chip" data-bg-key="space">우주</button>
+            <button class="chip" data-bg-key="sunset">노을</button>
+          </div>
+          <label class="input" style="display:inline-flex;align-items:center;gap:6px">
+            <input type="checkbox" id="bg-auto"> 모드별 배경 자동
+          </label>
+          <label class="input" style="display:inline-flex;align-items:center;gap:6px">
+            <input type="checkbox" id="ring-auto" checked> 링 자동색상
+          </label>
+          <details class="input" style="padding:8px 10px">
+            <summary>링 커스텀</summary>
+            <div class="row wrap" style="margin-top:8px">
+              <label>색상1 <input id="ring-c1" type="color" value="#a78bfa"></label>
+              <label>색상2 <input id="ring-c2" type="color" value="#60a5fa"></label>
+              <label>두께 <input id="ring-w" type="range" min="6" max="22" step="1" value="12"></label>
+            </div>
+          </details>
+        </div>
+        <div class="linked" id="linked">No task linked</div>
+        <div class="controls">
+          <button class="btn main" id="btn-start">집중 시작하기</button>
+          <button class="btn" id="btn-pause">일시정지</button>
+          <button class="btn ghost" id="btn-reset">정지</button>
+          <button class="btn danger" id="btn-end-break" style="display:none">휴식 종료</button>
+        </div>
+        <p class="hint">Tip: Click Start to begin. Completed focus sessions are recorded to the dashboard.</p>
+      </section>
+
+      <section class="card" id="tasks">
+        <h3 class="title">Tasks</h3>
+        <div class="row wrap">
+          <input id="task-text" class="input" placeholder="Task title">
+          <input id="task-due-date" class="input" type="text" title="Due date" placeholder="YYYY-MM-DD">
+          <input id="task-due-time" class="input" type="text" title="Due time" placeholder="HH:MM">
+          <input id="task-category" class="input" list="category-list" placeholder="Category (e.g., Study)">
+          <datalist id="category-list"></datalist>
+          <select id="task-repeat" class="input" title="Repeat">
+            <option value="none">No repeat</option>
+            <option value="daily">Daily</option>
+            <option value="weekly">Weekly</option>
+            <option value="monthly">Monthly</option>
+          </select>
+          <input id="task-est" class="input" type="number" min="1" value="1" title="Estimated pomodoros">
+          <button class="btn" id="add-task">Add</button>
+        </div>
+        <ul class="tasks" id="task-list"></ul>
+      </section>
+
+      <div class="tabs">
+        <button class="tab active" data-tab="summary">Summary</button>
+        <button class="tab" data-tab="detail">Detail</button>
+      </div>
+
+      <section id="summary" class="tabpane">
+        <section class="card" id="focused-widget">
+          <div class="fw-head">
+            <div>
+              <div class="fw-title">집중한 시간</div>
+              <div class="fw-sub">총 집중 시간: <span id="fw-total">0</span>분</div>
+            </div>
+            <button class="btn mini ghost" id="fw-view">작업 보기</button>
+          </div>
+          <div class="fw-tabs seg">
+            <button class="seg-btn active" data-fw-range="day">일일</button>
+            <button class="seg-btn" data-fw-range="week">주간</button>
+            <button class="seg-btn" data-fw-range="month">월간</button>
+          </div>
+          <div class="fw-nav">
+            <button class="btn mini" id="fw-prev">◀</button>
+            <span id="fw-label">오늘</span>
+            <button class="btn mini" id="fw-next">▶</button>
+          </div>
+          <div class="fw-list" id="fw-list"></div>
+        </section>
+
+        <div class="cards">
+          <div class="stat">
+            <div class="stat-title">focus hours</div>
+            <div id="stat-hours" class="stat-value">0.0</div>
+          </div>
+          <div class="stat">
+            <div class="stat-title">days accessed</div>
+            <div id="stat-days" class="stat-value">0</div>
+          </div>
+          <div class="stat">
+            <div class="stat-title">day streak</div>
+            <div id="stat-streak" class="stat-value">0</div>
+          </div>
+        </div>
+
+        <div class="chart-box">
+          <div class="chart-top">
+            <div class="chart-title">Focus Hours</div>
+            <div class="seg">
+              <button class="seg-btn active" data-range="week">Week</button>
+              <button class="seg-btn" data-range="month">Month</button>
+              <button class="seg-btn" data-range="year">Year</button>
+            </div>
+          </div>
+          <canvas id="focusChart" height="120"></canvas>
+          <div class="chart-foot">
+            <button id="btn-prev" class="btn mini">◀</button>
+            <span id="range-label">This Week</span>
+            <button id="btn-next" class="btn mini">▶</button>
+          </div>
+        </div>
+      </section>
+
+      <section id="detail" class="tabpane hidden">
+        <div class="card" id="manual-session">
+          <div class="row wrap">
+            <select id="manual-task" class="input">
+              <option value="">— No task —</option>
+            </select>
+            <select id="manual-mode" class="input">
+              <option value="focus">Focus</option>
+              <option value="short">Short</option>
+              <option value="long">Long</option>
+            </select>
+            <input id="manual-start" class="input" type="text" title="Start time" placeholder="YYYY-MM-DDTHH:MM">
+            <input id="manual-end" class="input" type="text" title="End time" placeholder="YYYY-MM-DDTHH:MM">
+            <button class="btn" id="manual-add">Add Session</button>
+          </div>
+        </div>
+        <table class="table" id="session-table">
+          <thead>
+            <tr><th>Start</th><th>End</th><th>Task</th><th>Mode</th><th>Minutes</th><th>Actions</th></tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </section>
+
+      <footer class="site-footer">© FocusTime — Local only, no tracking</footer>
+    </div>
+
+  <!-- Removed external audio to avoid 403; using WebAudio beep in main.js -->
+    <script src="main.js"></script>
+  </body>
+</html>

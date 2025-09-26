@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>FocusTime — Dashboard</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+  <style>
+  .dash-grid{display:grid;grid-template-columns:2fr 1fr;gap:12px}
+  /* unified main grid with absolute 4:2 ratio filling viewport */
+  .dash-main{display:grid;grid-template-columns:repeat(6,1fr);grid-template-rows:4fr 2fr;gap:12px;height:var(--mainHeight, calc(100dvh - 260px))}
+  .dash-main .row1,.dash-main .row2{min-height:0}
+  .kpis{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:12px;margin-bottom:12px}
+    .kpi{color:#e6edff}
+    .kpi .v{font-size:28px;font-weight:800}
+    .kpi .s{opacity:.8}
+    .tabs2{display:inline-grid;grid-auto-flow:column;gap:6px;background:rgba(255,255,255,.12);border-radius:999px;padding:4px}
+    .tabs2 button{border:none;background:transparent;color:#e6edff;opacity:.85;padding:6px 10px;border-radius:999px;cursor:pointer}
+    .tabs2 button.active{background:#fff;color:#0b1120}
+    .flex{display:flex;gap:8px;align-items:center}
+    .segbar{height:10px;background:rgba(255,255,255,.14);border-radius:999px}
+    .segbar .fill{height:100%;background:#818cf8;border-radius:999px}
+    .muted{opacity:.8}
+  /* timeline fills card content area */
+  .timeline-wrap{position:relative;border:1px solid rgba(255,255,255,.08);border-radius:12px;margin-top:8px;overflow:auto;height:calc(100% - 86px);padding-bottom:4px}
+  .timeline-wrap.day,.timeline-wrap.week,.timeline-wrap.month{height:calc(100% - 86px)}
+  .cal{margin-top:8px}
+  /* square pie helper */
+  .pie-wrap{display:grid;place-items:center}
+  .pie-box{width:100%;max-height:100%;aspect-ratio:1/1}
+    .cal-header{display:flex;justify-content:space-between;align-items:center;margin:6px 0}
+    .cal-month{font-weight:700}
+    .cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:4px}
+  .cal-weekdays{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin:6px 0 4px;color:#9eb3da;text-align:center}
+    .cal-day{aspect-ratio:1/1;display:grid;place-items:center;border-radius:10px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);color:#e6edff;font-size:.9rem;position:relative}
+    .cal-day.dim{opacity:.45}
+    .cal-day.mark::after{content:"";position:absolute;bottom:6px;width:6px;height:6px;border-radius:50%;background:#818cf8}
+  .cal-day.sel{outline:2px solid #ef4444}
+  /* per-day goal progress ring (0..100 via --pct) */
+  .cal-day.has-pct::before{content:"";position:absolute;inset:6px;border-radius:50%;pointer-events:none;box-shadow:0 0 0 6px rgba(255,255,255,.08) inset}
+  .cal-day.has-pct::after{content:"";position:absolute;inset:4px;border-radius:50%;pointer-events:none;background:conic-gradient(#ef4444 calc(var(--pct,0)*1%), transparent 0);transform:rotate(-90deg);-webkit-mask:radial-gradient(farthest-side, transparent calc(100% - 6px), #000 0);mask:radial-gradient(farthest-side, transparent calc(100% - 6px), #000 0)}
+  .tooltip{position:fixed;pointer-events:none;background:rgba(15,26,51,.9);border:1px solid rgba(255,255,255,.15);color:#e6edff;border-radius:8px;padding:6px 8px;font-size:.85rem;z-index:20;transform:translate(-50%,-110%);white-space:nowrap}
+    .table{width:100%;border-collapse:collapse}
+    .table th,.table td{padding:8px;border-bottom:1px solid rgba(255,255,255,.08)}
+    .pie-card{overflow:hidden}
+  .pie-box{display:block;margin:0 auto;aspect-ratio:1/1;max-width:92%;}
+    .cal-day .cal-inner{width:86%;height:86%;border-radius:10px;display:grid;place-items:center;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08)}
+  /* goal heatmap */
+  .goal-heatmap{margin-top:8px; position:relative; overflow:auto}
+  .goal-legend{display:grid;grid-auto-flow:column;justify-content:end;gap:6px;align-items:center;color:#9eb3da;font-size:.85rem;margin-top:6px}
+  .legend-swatch{width:12px;height:12px;border-radius:2px;border:1px solid rgba(0,0,0,.08)}
+  .goal-heatmap canvas{display:block; width:100%; height:200px; border:1px solid rgba(255,255,255,.08); border-radius:10px; background:rgba(255,255,255,.04)}
+  </style>
+</head>
+<body>
+  <a id="btn-home" class="fab" href="index.html" title="홈">🏠</a>
+  <div class="container">
+  <h1 class="title">대시보드</h1>
+  <div id="tt" class="tooltip" style="display:none"></div>
+
+    <div class="kpis">
+      <div class="card glass kpi"><div class="s muted">뽀모도로 총 시간</div><div class="v"><span id="kpi-total-h"></span><small>시간</small> <span id="kpi-total-m"></span><small>분</small></div></div>
+      <div class="card glass kpi"><div class="s muted">이번 주 뽀모도로 시간</div><div class="v"><span id="kpi-week-m">0</span><small>분</small></div></div>
+      <div class="card glass kpi"><div class="s muted">오늘 뽀모도로 시간</div><div class="v" style="color:#ef9ca9"><span id="kpi-today-m">0</span><small>분</small></div></div>
+      <div class="card glass kpi"><div class="s muted">총 완료된 작업</div><div class="v" style="color:#93c5fd"><span id="kpi-done">0</span></div></div>
+      <div class="card glass kpi"><div class="s muted">이번 주 완료된 작업</div><div class="v" style="color:#93c5fd"><span id="kpi-week-done">0</span></div></div>
+      <div class="card glass kpi"><div class="s muted">오늘 완료된 작업</div><div class="v" style="color:#93c5fd"><span id="kpi-today-done">0</span></div></div>
+    </div>
+
+    <!-- Main 4:2 grid: left (timeline/pie) vs right (focused/goal) -->
+  <div class="dash-main">
+  <div class="card glass colL row1" style="grid-column:1 / span 4">
+        <div class="flex" style="justify-content:space-between">
+          <div>
+            <div class="title" style="margin:0">뽀모도로 기록</div>
+            <div class="muted">최고치: <span id="tl-max">0</span>분 · 평균: <span id="tl-avg">0</span>분</div>
+          </div>
+          <div class="tabs2"><button class="active" data-range="day">일일</button><button data-range="week">주간</button><button data-range="month">월간</button></div>
+        </div>
+        <div class="flex" style="justify-content:space-between;margin:6px 0"><button class="btn mini" id="tl-prev">〈</button><div id="tl-label">오늘</div><button class="btn mini" id="tl-next">〉</button></div>
+  <div class="timeline-wrap"><canvas id="timelineCanvas"></canvas></div>
+      </div>
+  <div class="card glass colR row1" style="grid-column:5 / span 2">
+        <div class="flex" style="justify-content:space-between">
+          <div>
+            <div class="title" style="margin:0">집중한 시간</div>
+            <div class="s">총 집중 시간: <span id="sum-min">0</span>분</div>
+          </div>
+          <button class="btn mini" id="btn-view-tasks">작업 보기</button>
+        </div>
+        <div class="tabs2" style="margin:8px 0"><button class="active" data-scope="day">일일</button><button data-scope="week">주간</button><button data-scope="month">월간</button></div>
+        <div class="flex" style="justify-content:space-between"><button class="btn mini" id="nav-prev">〈</button><div id="scope-label">오늘</div><button class="btn mini" id="nav-next">〉</button></div>
+        <div style="margin-top:10px">
+          <div class="flex" style="justify-content:space-between"><div id="top-cat-name">—</div><div><span id="top-cat-min">0</span>분</div></div>
+          <div class="segbar"><div class="fill" id="top-cat-fill" style="width:0%"></div></div>
+        </div>
+      </div>
+  <div class="card glass colL row2 pie-card" style="display:flex;flex-direction:column;grid-column:1 / span 4">
+        <div class="flex" style="justify-content:space-between;align-items:center">
+          <div class="title" style="margin:0">프로젝트 시간 비율</div>
+          <div class="tabs2"><button class="active" data-pie="day">일일</button><button data-pie="week">주간</button><button data-pie="month">월간</button></div>
+        </div>
+        <div class="pie-wrap" style="flex:1;min-height:0;margin-top:6px;display:grid;place-items:center;position:relative;z-index:0">
+          <div class="pie-box" style="width:62%;max-width:460px;position:relative">
+            <canvas id="chartPie" style="width:100%;height:100%"></canvas>
+            <div id="pieCenter" class="pie-center" style="position:absolute;inset:0;display:grid;place-items:center;color:#e6edff;pointer-events:none"></div>
+          </div>
+          <div id="pieList" class="pie-list" style="margin-top:8px;display:grid;gap:6px;grid-auto-rows:min-content;max-width:520px;width:90%"></div>
+        </div>
+      </div>
+  <div id="goalCard" class="card glass colR row2 goal-outline" style="display:flex;flex-direction:column;grid-column:5 / span 2">
+        <div class="flex" style="justify-content:space-between;align-items:center">
+          <div class="title" style="margin:0">목표 집중 시간</div>
+          <div class="btn mini" id="goalPill">목표: <span id="goalPillVal">10</span>H</div>
+        </div>
+        <div style="margin-top:6px">
+          <input id="goalH" class="input" type="number" min="0" value="10" style="width:90px"> 시간/일
+        </div>
+  <div id="goalTabs" class="tabs2" style="margin:8px 0"><button class="active" data-goalview="month">월</button><button data-goalview="year">연</button></div>
+        <div id="goalSummary" class="s" style="margin-top:0">—</div>
+        <div class="cal" id="calendar" style="flex:1;min-height:0;overflow:auto;margin-top:6px">
+          <div class="cal-header"><button class="btn mini" id="cal-prev">〈</button><div class="cal-month" id="cal-month"></div><button class="btn mini" id="cal-next">〉</button></div>
+          <div class="cal-weekdays">
+            <div>월</div><div>화</div><div>수</div><div>목</div><div>금</div><div>토</div><div>일</div>
+          </div>
+          <div class="cal-grid" id="cal-grid"></div>
+        </div>
+        <div id="goalHeatmapWrap" class="goal-heatmap" style="display:none">
+          <canvas id="goalHeatmap" height="200"></canvas>
+          <div class="goal-legend">
+            <span>0m</span>
+            <span class="legend-swatch" style="background:#eef2ff"></span>
+            <span class="legend-swatch" style="background:#dbeafe"></span>
+            <span class="legend-swatch" style="background:#bfdbfe"></span>
+            <span class="legend-swatch" style="background:#93c5fd"></span>
+            <span class="legend-swatch" style="background:#60a5fa"></span>
+            <span class="legend-swatch" style="background:#3b82f6"></span>
+            <span>>12h</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  <div class="dash-grid" style="grid-template-columns:1fr; margin-top:20px; position:relative; z-index:0">
+      <div class="card glass">
+        <div class="flex" style="justify-content:space-between;align-items:center">
+          <div class="title" style="margin:0">상세</div>
+          <div class="tabs2"><button class="active" data-detail="cat">카테고리</button><button data-detail="task">작업</button><button data-detail="sess">세션</button></div>
+        </div>
+        <div id="detail-wrap" style="margin-top:8px">
+          <div class="row wrap" style="margin-bottom:6px">
+            <select id="f-cat" class="input" style="min-width:140px"><option value="">모든 카테고리</option></select>
+            <select id="f-task" class="input" style="min-width:180px"><option value="">모든 작업</option></select>
+            <select id="f-mode" class="input" style="min-width:140px">
+              <option value="">모든 모드</option>
+              <option value="focus">Focus</option>
+              <option value="short">Short</option>
+              <option value="long">Long</option>
+            </select>
+            <button class="btn mini" id="btn-csv">CSV 다운로드</button>
+          </div>
+          <table class="table" id="detail-table"><thead></thead><tbody></tbody></table>
+          <div id="detail-sum" class="muted" style="margin-top:6px">—</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="dashboard.js"></script>
+</body>
+</html>
