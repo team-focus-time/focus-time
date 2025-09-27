@@ -16,17 +16,18 @@
             <div class="input">
               <input
                 id="login-input-name"
-                type="email"
-                name="email"
+                type="text"
+                name="name"
                 placeholder="name"
               />
+              <span id="name-error" class="error"></span>
               <input
                 id="login-input-email"
                 type="email"
                 name="email"
                 placeholder="name@example.com"
               />
-              <span id="id-error" class="error"></span>
+              <span id="email-error" class="error"></span>
             </div>
             <div class="input pw-wrapper">
               <input
@@ -42,18 +43,20 @@
             </div>
             <div class="input pw-wrapper">
               <input
-                id="login-input-pw"
+                id="login-input-pw-confirm"
                 type="password"
-                name="password"
+                name="passwordConfirm"
                 placeholder="confirm password"
               />
-              <span id="pw-error" class="error"></span>
+              <span id="pw-confirm-error" class="error"></span>
               <button class="pw-toggle" type="button">
                 <i class="fa-solid fa-eye pw-btn"></i>
               </button>
             </div>
           </div>
-          <button id="login-btn" class="btn-login" type="button">Login</button>
+          <button id="login-btn" class="btn-login" type="button">
+            Register
+          </button>
           <div class="btn-account">
             <p>You have account?</p>
             <button id="btn-login" class="btn-Register" type="button">
@@ -65,14 +68,11 @@
       <div id="alert" class="alert-wrapper">
         <div class="alert">
           <p id="message-main" class="message-main">
-            가입되지 않은 회원 정보입니다
+            회원가입이 완료되었습니다
           </p>
-          <p id="message-text" class="message-text">
-            회원가입을 진행하시겠습니까?
-          </p>
+          <p id="message-text" class="message-text">로그인을 진행해주세요</p>
           <div class="alert-btn">
-            <button id="alert-no" class="alert-no">아니요</button>
-            <button id="alert-yes" class="alert-yes">네</button>
+            <button id="alert-yes" class="alert-yes">Open</button>
           </div>
         </div>
       </div>
