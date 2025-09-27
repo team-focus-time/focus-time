@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Focus Time - TodoList</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link rel="stylesheet" href="TodoList.css" />
+  </head>
+  <body>
+    <div class="container">
+      <!-- 헤더 -->
+      <div class="header">
+        <div class="header-left">
+          <i class="fas fa-bars header-icon"></i>
+          <i class="fas fa-chart-bar header-icon"></i>
+          <i class="fas fa-cog header-icon"></i>
+        </div>
+        <i class="fas fa-times close-btn"></i>
+      </div>
+
+      <!-- 날짜 네비게이션 -->
+      <div class="date-nav">
+        <div class="date-arrow prev" id="prevBtn">
+          <i class="fas fa-chevron-left"></i>
+        </div>
+        <div class="current-date" id="currentDate"></div>
+        <div class="date-arrow next" id="nextBtn">
+          <i class="fas fa-chevron-right"></i>
+        </div>
+      </div>
+
+      <!-- 투두 리스트 -->
+      <div class="todo-content" id="todoContent"></div>
+
+      <!-- 플러스 버튼 -->
+      <button class="floating-btn" id="openModalBtn">
+        <i class="fas fa-plus"></i>
+      </button>
+
+      <!-- 추가 모달 -->
+      <div class="add-modal" id="addModal">
+        <div class="add-form">
+          <div class="form-title">
+            <input type="text" placeholder="Add new thing" id="todoInput" />
+            <select class="category-dropdown" id="categorySelect">
+              <option value="WORK">WORK</option>
+              <option value="HOBBY">HOBBY</option>
+              <option value="STUDY">STUDY</option>
+            </select>
+          </div>
+
+          <div class="form-sections">
+            <div class="form-section">
+              <div class="section-header">
+                <span class="section-title">Select Date</span>
+                <i class="fas fa-info-circle section-icon"></i>
+              </div>
+              <div class="calendar-grid" id="calendar"></div>
+            </div>
+
+            <div class="form-section">
+              <div class="section-header">
+                <span class="section-title">Set Time</span>
+              </div>
+              <div class="time-section">
+                <div class="time-display-large" id="timeDisplayLarge">00:00</div>
+                <div class="time-inputs">
+                  <input type="number" class="time-input" id="hoursInput" min="0" max="23" value="0" />
+                  <span>:</span>
+                  <input type="number" class="time-input" id="minutesInput" min="0" max="59" value="0" />
+                </div>
+                <div class="time-controls">
+                  <button class="time-control-btn" id="hoursUpBtn">
+                    <i class="fas fa-chevron-up"></i>
+                  </button>
+                  <button class="time-control-btn" id="minutesUpBtn">
+                    <i class="fas fa-chevron-up"></i>
+                  </button>
+                </div>
+                <div class="time-controls">
+                  <button class="time-control-btn" id="hoursDownBtn">
+                    <i class="fas fa-chevron-down"></i>
+                  </button>
+                  <button class="time-control-btn" id="minutesDownBtn">
+                    <i class="fas fa-chevron-down"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <button class="continue-btn" id="addTaskBtn">Add Task</button>
+          <button class="close-modal-btn" id="closeModalBtn">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script src="TodoList.js"></script>
+  </body>
+</html>

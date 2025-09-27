@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Focus time</title>
+    <link rel="stylesheet" href="Login.css" />
+  </head>
+  <body>
+    <div class="bg-wrapper">
+      <h1>Let's focus time</h1>
+      <form id="sign" name="sign" class="onboarding">
+        <div class="login-wrapper">
+          <h2>Welcome!</h2>
+          <div class="input-wrapper">
+            <div class="input">
+              <input
+                id="login-input-email"
+                type="email"
+                name="email"
+                placeholder="name@example.com"
+              />
+              <span id="id-error" class="error"></span>
+            </div>
+            <div class="input pw-wrapper">
+              <input
+                id="login-input-pw"
+                type="password"
+                name="password"
+                placeholder="password"
+              />
+              <span id="pw-error" class="error"></span>
+              <button class="pw-toggle" type="button">
+                <i class="fa-solid fa-eye pw-btn"></i>
+              </button>
+            </div>
+          </div>
+          <div class="search-wrapper">
+            <button class="btn-pw-search" type="button">
+              Forgot password?
+            </button>
+          </div>
+          <button id="login-btn" class="btn-login" type="button">Login</button>
+          <div class="btn-account">
+            <p>Don't have an account?</p>
+            <button id="btn-Register" class="btn-Register" type="button">
+              Register
+            </button>
+          </div>
+        </div>
+      </form>
+      <div id="alert" class="alert-wrapper">
+        <div class="alert">
+          <p id="message-main" class="message-main">
+            가입되지 않은 회원 정보입니다
+          </p>
+          <p id="message-text" class="message-text">
+            회원가입을 진행하시겠습니까?
+          </p>
+          <div class="alert-btn">
+            <button id="alert-no" class="alert-no">Close</button>
+            <button id="alert-yes" class="alert-yes">Open</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script
+      src="https://kit.fontawesome.com/1811bd825e.js"
+      crossorigin="anonymous"
+    ></script>
+    <script src="Login.js"></script>
+  </body>
+</html>

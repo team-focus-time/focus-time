@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>STOPWATCH</title>
+
+    <link rel="stylesheet" href="StopWatch.css" />
+  </head>
+  <body>
+    <nav class="nav-bar">
+      <div><a class="logo" href="../login/Login.html">Focus Time</a></div>
+      <ul>
+        <li>
+          <a href="../todolist/TodoList.html"
+            ><i class="fa-solid fa-list"></i
+          ></a>
+        </li>
+        <li>
+          <a href="../history/index.html"
+            ><i class="fa-solid fa-chart-simple"></i
+          ></a>
+        </li>
+        <li>
+          <a href="../login/Login.html"
+            ><i class="fa-solid fa-circle-user"></i
+          ></a>
+        </li>
+      </ul>
+    </nav>
+    <div class="container">
+      <h1>STOPWATCH</h1>
+      <div class="radio-btn">
+        <label
+          ><input type="radio" name="stopOption" value="mousemove" checked />
+          마우스 모션 스탑</label
+        >
+        <label
+          ><input type="radio" name="stopOption" value="click" /> 버튼
+          스탑</label
+        >
+      </div>
+      <div class="main-container">
+        <div class="stopwatch-watch">00:00:00:00</div>
+        <span> </span>
+
+        <div class="stopwatch-buttons">
+          <button class="startBtn" onclick="start()">START</button>
+          <button class="pauseBtn" onclick="pause()">STOP</button>
+          <button class="resetBtn" onclick="reset()">RESET</button>
+        </div>
+      </div>
+      <div class="timer-btn">
+        <button id="timer-page">Timer <i class="fa-solid fa-play"></i></button>
+      </div>
+    </div>
+    <footer></footer>
+    <script
+      src="https://kit.fontawesome.com/7a65e83fda.js"
+      crossorigin="anonymous"
+    ></script>
+    <script src="StopWatch.js"></script>
+  </body>
+</html>

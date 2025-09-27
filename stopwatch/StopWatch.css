@@ -1,0 +1,115 @@
+body {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  margin: 0;
+  background-color: #0a1a4f;
+  color: #ffffff;
+  position: relative;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+}
+
+.nav-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 60px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.logo {
+  font-size: 20px;
+  font-weight: 700;
+  text-decoration: none;
+  color: #fff;
+}
+
+.nav-bar ul {
+  display: flex;
+  gap: 20px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+.nav-bar ul a {
+  text-decoration: none;
+  color: #fff;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+h1 {
+  font-weight: bold;
+  padding-bottom: 20px;
+  margin: 0;
+}
+.container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.main-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.radio-btn {
+  display: flex;
+  width: 250px;
+  justify-content: space-between;
+}
+
+.stopwatch-watch {
+  font-family: monospace;
+  font-size: 5em;
+  font-weight: bold;
+  padding: 20px;
+}
+
+.stopwatch-buttons {
+  display: flex;
+  gap: 3px;
+  justify-content: center;
+  padding-top: 10px;
+}
+.stopwatch-buttons button {
+  background-color: white;
+  border: 1px solid white;
+  box-shadow: none;
+  border-radius: 20px;
+  cursor: pointer;
+  padding: 5px 15px;
+  margin-left: 10px;
+  color: #0a1a4f;
+  font-weight: bold;
+}
+
+.timer-btn {
+  position: absolute;
+  right: 60px;
+  bottom: 50px;
+}
+
+.timer-btn button {
+  background-color: #0a1a4f;
+  border: 1px solid white;
+  box-shadow: none;
+  border-radius: 20px;
+  cursor: pointer;
+  padding: 5px 15px;
+  margin-left: 10px;
+  color: #fff;
+  font-weight: bold;
+}
+.fa-play {
+  font-size: 10px;
+  margin-left: 5px;
+}
