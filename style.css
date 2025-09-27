@@ -105,6 +105,7 @@ button {
   font-size: 15px;
   font-weight: 800;
   padding: 16px 0px 20px 0px;
+  text-align: center;
 }
 
 .people p {
@@ -117,4 +118,23 @@ button {
   word-wrap: break-word;
   word-break: break-word;
   white-space: normal;
+}
+
+@media screen and (max-width: 1024px) {
+  .people {
+    width: 300px;
+    height: 120px;
+    flex-direction: row;
+  }
+  .people-wrapper {
+    width: 630px;
+    flex-wrap: wrap;
+  }
+  .bg {
+    width: 60px;
+    height: 60px;
+  }
+}
+
+@media screen and (max-width: 450px) {
 }
