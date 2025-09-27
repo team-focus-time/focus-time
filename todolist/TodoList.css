@@ -98,9 +98,16 @@ body {
 }
 
 /* 투두 리스트 */
-.todo-content {
+/* .todo-content {
   padding: 0 24px 120px;
   min-height: calc(100vh - 200px);
+} */
+
+.todo-content {
+  width: 90%; /* 모달과 동일하게 */
+  max-width: 1000px; /* 모달 최대폭과 동일 */
+  margin: 0 auto; /* 중앙 정렬 */
+  padding-bottom: 120px; /* 기존 패딩 유지 */
 }
 
 .todo-item {
@@ -276,7 +283,6 @@ body {
   width: 90%;
   max-width: 1000px;
   max-height: 100vh;
-  overflow: hidden;
 }
 
 .form-title {
@@ -527,9 +533,20 @@ body {
   .form-sections {
     flex-direction: column;
     gap: 16px;
+    align-items: center;
   }
   .form-section {
+    width: 100%;
+    max-width: 350px;
     padding: 16px;
+  }
+
+  .time-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
   }
   .time-display-large {
     font-size: 24px;
@@ -560,12 +577,32 @@ body {
     padding: 20px;
   }
   .form-sections {
-    gap: 20px;
+    flex-direction: column;
+    align-items: center;
   }
   .form-section {
-    padding: 24px;
-    min-height: 400px;
+    width: 100%;
+    max-width: 400px;
+    aspect-ratio: 1 / 1;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
   }
+
+  .calendar-grid {
+    width: 100%;
+    height: 100%;
+  }
+
+  .time-section {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
   .time-display-large {
     font-size: 32px;
   }
