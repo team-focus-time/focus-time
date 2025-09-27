@@ -182,12 +182,3 @@ h2 {
   border-radius: 5px;
   font-size: 12px;
 }
-
-.alert-no {
-  border: 0;
-  width: 120px;
-  height: 32px;
-  border: 1px solid black;
-  border-radius: 5px;
-  font-size: 12px;
-}

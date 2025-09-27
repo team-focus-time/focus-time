@@ -1,5 +1,7 @@
+// 기존 데이터 불러오기
 var storedUserData = localStorage.getItem('userData');
 var userData = storedUserData ? JSON.parse(storedUserData) : {};
+
 const errorId = ['id-error', 'pw-error'];
 const LoginBtn = document.getElementById('login-btn');
 const LoginInputEmail = document.getElementById('login-input-email');
@@ -9,7 +11,8 @@ const pwToggle = document.querySelector('.pw-btn');
 const btnRegister = document.getElementById('btn-Register');
 
 LoginBtn.addEventListener('click', login);
-// 비밀번호 shown/hidden 토글
+
+// 비밀번호 show/hide 토글
 pwToggle.addEventListener('click', function () {
   if (pwInput.type === 'password') {
     pwInput.type = 'text';
@@ -19,17 +22,16 @@ pwToggle.addEventListener('click', function () {
     pwToggle.classList.remove('fa-eye-slash');
   }
 });
+
 btnRegister.addEventListener('click', function () {
   window.location.replace('/register/Register.html');
 });
 
-[
-  // 엔터키 입력 시 로그인 실행
-  LoginInputEmail,
-  LoginInputPw,
-].forEach((input, index) => {
+// 엔터키 입력 시 로그인 실행 + 입력 유효성 검사
+[LoginInputEmail, LoginInputPw].forEach((input, index) => {
   input.addEventListener('keyup', function (e) {
     if (e.key === 'Enter') {
+      e.preventDefault();
       login();
     }
   });
@@ -55,24 +57,33 @@ btnRegister.addEventListener('click', function () {
   });
 });
 
-// alert 창 보이기
 function showAlert(message) {
   const alertWrapper = document.getElementById('alert');
   const alertYes = document.getElementById('alert-yes');
-  const alertNo = document.getElementById('alert-no');
   const messageMain = document.getElementById('message-main');
+
   messageMain.textContent = message;
   alertWrapper.style.display = 'flex';
 
-  // "네" 버튼을 누를 시 회원가입 페이지 전환
-  alertYes.addEventListener('click', function () {
-    window.location.href = '/register/Register.html';
+  const newAlertYes = alertYes.cloneNode(true);
+  alertYes.replaceWith(newAlertYes);
+
+  const goStopwatch = () => {
     alertWrapper.style.display = 'none';
-  });
-  // "아니요" 버튼을 누를 시 로그인 페이지 유지
-  alertNo.addEventListener('click', function () {
-    alertWrapper.style.display = 'none';
-  });
+    window.location.replace('/register/Register.html');
+    document.removeEventListener('keydown', handleEnter);
+  };
+
+  newAlertYes.addEventListener('click', goStopwatch);
+
+  const handleEnter = (e) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      goStopwatch();
+    }
+  };
+
+  document.addEventListener('keydown', handleEnter);
 }
 
 function login() {
@@ -98,6 +109,8 @@ function login() {
   // 회원가입 유무 확인
   if (userData[email]) {
     if (userData[email].password === pw) {
+      // 로그인 성공 → 로그인 상태 저장
+      localStorage.setItem('currentUser', email);
       window.location.replace('/stopwatch/StopWatch.html');
     } else {
       document.getElementById(errorId[1]).innerHTML =
