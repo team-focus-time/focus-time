@@ -1,361 +1,445 @@
 :root{
   --navy:#0f1b4d;
-  --white:#fff;
   --panel:#f6f7fb;
   --card:#0f1b4d;
-  --shadow:0 8px 24px rgba(2,10,42,.18);
+  --white:#fff;
+  --muted:#7e88a9;
+  --shadow:0 10px 30px rgba(2,10,42,.16);
   --radius:18px;
 }
-
 *{box-sizing:border-box}
-html,body{height:100%}
-body{
-  margin:0;
-  background:var(--navy);
-  color:var(--white);
-  font-family:"Inter", "Noto Sans KR", system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
-}
-.app{
-  display:flex;
-  height:100vh;
-}
-.left{
-  width:50%;
-  min-width:360px;
-  background:var(--navy);
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  align-items:center;
-  position:relative;
-}
-.left-header{
-  position:absolute;
-  top:40px;
-  left:60px;
-  font-size:32px;
-  font-weight:800;
-  letter-spacing:.2px;
-}
-.timer-box{
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  flex:1;
-}
-.timer{
-  font-size:110px;
-  font-weight:800;
-  margin-bottom:24px;
-  letter-spacing:4px;
-}
-.btn{
-  background:#fff;
-  color:var(--navy);
-  border:none;
-  border-radius:999px;
-  padding:12px 32px;
-  font-size:22px;
-  font-weight:700;
-  margin-bottom:24px;
-  cursor:pointer;
-  box-shadow:var(--shadow);
-}
-.pill{
-  background:var(--navy);
-  color:#fff;
-  padding:10px 18px;
-  border-radius:999px;
-  border:2px solid rgba(255,255,255,.18);
-  cursor:pointer;
-  font-size:18px;
-  font-weight:700;
-  position:absolute;
-  bottom:40px;
-  right:60px;
-}
-.left-footer{height:40px;}
+html,body{height:100%;margin:0;font-family:Inter,system-ui,'Segoe UI',Roboto,'맑은 고딕',sans-serif}
+.app{display:flex;height:100vh}
+.left{width:50%;background:var(--navy);display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;padding:40px}
+.left-header{position:absolute;top:28px;left:48px;color:var(--white);font-weight:800;font-size:28px}
+.timer-box{display:flex;flex-direction:column;align-items:center;justify-content:center}
+.timer{font-size:112px;font-weight:800;color:var(--white);letter-spacing:2px}
+.timer-controls{display:flex;gap:12px;margin-top:18px}
+.btn{background:var(--white);color:var(--navy);border:none;padding:10px 22px;border-radius:999px;font-weight:700;cursor:pointer;box-shadow:0 6px 18px rgba(0,0,0,.08)}
+.btn.secondary{background:transparent;color:var(--white);border:1px solid rgba(255,255,255,.12)}
+.pill{position:absolute;right:48px;bottom:38px;background:transparent;border:2px solid rgba(255,255,255,.18);color:var(--white);padding:10px 18px;border-radius:999px;cursor:pointer}
 
-.right{
-  width:50%;
-  background:var(--panel);
-  color:#222;
-  padding:38px 38px 0 38px;
-  overflow: auto; /* 가로/세로 스크롤 허용 */
-  position:relative;
-  display:flex;
-  flex-direction:column;
-}
-.topbar{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  margin-bottom:18px;
-}
-.icons {
-  display: flex;
-  gap: 18px;
-  align-items: center;
-}
-.icon {
-  background: #fff;
-  border-radius: 14px;
-  box-shadow: 0 6px 18px rgba(0,0,0,.06);
-  padding: 6px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 38px;
-  height: 38px;
-}
-.icon svg {
-  display: block;
-}
-.close-btn {
-  border: none;
-  background: transparent;
-  font-size: 22px;
-  opacity: .6;
-  cursor: pointer;
-  margin-left: 12px;
-}
+/* RIGHT PANEL */
+.right{width:50%;background:var(--panel);padding:28px 36px;overflow:auto;position:relative;display:flex;flex-direction:column}
+.topbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+.icons{display:flex;gap:12px}
+.icon{background:#fff;border-radius:10px;padding:8px;box-shadow:0 6px 18px rgba(0,0,0,.06);display:flex;align-items:center;justify-content:center;cursor:default}
+.close-btn{background:transparent;border:none;font-size:22px;cursor:pointer;opacity:.6}
 
-/* 4×3 카드 그리드 */
-.calendar-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 32px 28px;
-  margin-top: 12px;
-  padding-bottom: 32px;
-  grid-auto-flow: row;
+/* ===== calendar grid: fixed card size + horizontal scroll ===== */
+.right { overflow: auto; -webkit-overflow-scrolling: touch; padding: 28px 22px; }
+
+/* force fixed card width so grid can overflow horizontally */
+.calendar-grid{
+  display: grid !important;
+  grid-auto-flow: column;               /* lay out columns left→right */
+  grid-auto-columns: 300px;             /* each card fixed width */
+  grid-template-rows: repeat(3, 1fr);   /* 3 rows (3x4 layout uses width to wrap) */
+  gap: 28px;
+  align-items: start;
+  width: max-content;                   /* allow horizontal scroll in .right */
+  padding: 8px 12px;
   box-sizing: border-box;
-
-  overflow-x: auto; /* 가로 스크롤 활성화 */
-  -webkit-overflow-scrolling: touch;
-  /* 카드 최대폭(220px) + 컬럼 간격(28px)을 기반으로 최소 너비 계산.
-     4열 기준: 4*220 + 3*28 = 964px. 필요하면 값 조절 가능 */
-  min-width: calc( (220px * 4) + (28px * 3) );
-  padding-inline-end: 12px; /* 오른쪽 여유 */
 }
 
-/* 월 카드 */
-.month {
-  background: var(--card);
-  color: #fff;
-  border-radius: var(--radius);
-  box-shadow: var(--shadow);
-  cursor: pointer;
-  transition: transform .18s, box-shadow .18s;
+/* unify card size and appearance */
+.calendar-grid .card,
+.calendar-grid .month-card,
+.calendar-grid .month {
+  width: 300px !important;
+  height: 380px !important;   /* fixed height so all cards identical */
+  min-width: 300px !important;
+  min-height: 380px !important;
+  padding: 18px !important;
   display: flex;
   flex-direction: column;
   align-items: center;
-  min-width: 180px;
-  max-width: 220px;
-  min-height: 210px;
-  padding: 18px 0 18px 0; /* 헤더와 캘린더 간 여백 안정화 */
-  justify-content: flex-start; /* header가 위에 고정되도록 */
-  overflow: visible;
-}
-.month-header {
-  font-size: 22px;
-  font-weight: 800;
-  margin-top: 18px;
-  margin-bottom: 2px;
-}
-.month-en {
-  font-size: 14px;
-  opacity: .85;
-  margin-bottom: 10px;
-}
-.calendar-mini {
-  background: #fff;
-  color: #222;
-  border-radius: 16px;
-  padding: 12px 10px 18px 10px;
-  width: 78%; /* 내부 폭을 줄여 마지막 열이 보이도록 여유 확보 */
-  margin: 0 auto;
+  justify-content: flex-start;
+  overflow: visible !important;
   box-sizing: border-box;
-  margin-bottom: 10px;
-  box-shadow: 0 2px 8px rgba(2,10,42,.08);
-  overflow: hidden;
-
-  height: 220px;           /* 고정 높이 — 필요하면 픽셀 값 조정 */
-  display: flex;
-  flex-direction: column;
 }
 
-/* 요일과 날짜 그리드 정렬 고정 */
-.calendar-mini .wdays {
-  display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  font-size: 12px;
-  color: #7e88a9;
-  margin-bottom: 8px;
-  text-align: center;
-  gap: 0;
-  align-items: center;
-}
-
-/* 날짜 그리드: 항상 7열, 행 높이를 고정해서 겹치지 않도록 */
-.calendar-mini .days {
-  display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  grid-auto-rows: 28px;    /* 각 주(행) 높이 고정 — 필요시 값 조정 */
-  gap: 6px 6px;
-  text-align: center;
-  align-content: start;    /* 상단부터 채우기 */
-  overflow: hidden;
-}
-
-/* 날짜 셀 중앙정렬 유지 */
-.calendar-mini .days div {
-  font-size: 14px;
-  color: #283464;
-  border-radius: 6px;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  line-height: 1;
-}
-.calendar-mini .days .muted {
-  color: #c2c6d7;
-}
-.calendar-mini .days .today {
-  background: #e9efff;
-  color: #122168;
-  font-weight: 700;
-}
-
-/* 확장 카드 스타일 */
-.right.expanded .calendar-grid {
+/* white inner calendar box: fixed size & internal scroll so content fits */
+.calendar-mini,
+.calendar-grid .card .inner,
+.calendar-grid .card .mini-wrap,
+.calendar-grid .month .inner {
+  width: 86% !important;
+  max-width: 86% !important;
+  height: 220px !important;        /* fixed white box height so layout consistent */
+  max-height: 220px !important;
+  padding: 10px !important;
+  margin-bottom: 12px;
+  background: var(--white);
+  border-radius: 12px;
+  box-shadow: 0 8px 18px rgba(0,0,0,0.06);
+  overflow: auto !important;       /* internal vertical scroll if needed */
+  box-sizing: border-box;
   position: relative;
+  z-index: 2;                       /* ensure white box is on top */
 }
-.right.expanded .month:not(.expanded) {
-  opacity: 0;
-  pointer-events: none;
-}
-.month.expanded {
-  position: absolute;
-  inset: 0 0 0 0;
-  margin: 0;
-  border-radius: 28px;
-  z-index: 10;
-  background: var(--card);
-  box-shadow: 0 12px 32px rgba(2,10,42,.18);
-  display: flex;
-  flex-direction: column;
+
+/* force 7 equal columns inside the white box */
+.calendar-mini .wdays,
+.calendar-mini .days,
+.calendar-grid table.calendar thead,
+.calendar-grid table.calendar tbody {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+  width: 100%;
+  box-sizing: border-box;
+  justify-items: center;
   align-items: center;
-  max-width: none;
-  min-width: 0;
-  min-height: 0;
+}
+
+/* weekday & date sizing */
+.calendar-mini .wdays span { font-size: 11px; line-height:1.05; padding:0 2px; white-space:nowrap; }
+.calendar-mini .days div,
+.calendar-grid table.calendar td { font-size: 12px; height: 24px; line-height:1; padding:0 4px; white-space:nowrap; }
+
+/* ensure cards don't let inner content visually bleed into neighbor cards */
+.calendar-grid > * { overflow: visible !important; position: relative; }
+.calendar-grid .month::after { content: ''; position: absolute; inset: 0; pointer-events: none; }
+
+/* responsive: smaller widths -> 2 columns visible, still horizontally scrollable */
+@media (max-width:1100px){
+  .calendar-grid{ grid-auto-columns: 260px; }
+  .calendar-grid .card, .calendar-grid .month { width:260px; height:340px; min-height:340px; }
+  .calendar-mini, .calendar-grid .card .inner { height:200px; max-height:200px; }
+  .calendar-mini .days div { height:20px; font-size:11px; }
+}
+
+/* 우측 패널의 스크롤바가 카드 일부를 가리지 않도록 패딩 보정 */
+.right {
+  padding-right: 18px;
+  overflow: auto;
+}
+
+/* 안전: 카드 내부의 둥근 모서리 그림자 때문에 잘리는 경우 상위에서 보이도록 */
+.calendar-grid > * { overflow: visible !important; }
+
+/* MONTH CARD */
+.month{background:var(--card);color:var(--white);border-radius:18px;padding:18px 0 18px 0;display:flex;flex-direction:column;align-items:center;min-width:200px;max-width:240px;min-height:260px;box-shadow:var(--shadow);position:relative}
+.month-header{font-size:22px;font-weight:800;margin-top:6px;text-align:center;width:100%}
+.month-en{font-size:13px;opacity:.9;margin-bottom:10px;text-align:center;width:100%}
+.calendar-mini{background:var(--white);color:#222;border-radius:12px;padding:10px;width:86%;box-sizing:border-box;margin-bottom:12px;display:flex;flex-direction:column;height:auto !important;      /* 중요: 고정 높이 제거 */  max-height:none !important;  overflow:visible !important; /* 잘리지 않도록 */}
+.calendar-mini .wdays{display:grid;grid-template-columns:repeat(7,1fr);font-size:11px;color:var(--muted);margin-bottom:6px;text-align:center;gap:0;padding:0 6px}
+.calendar-mini .wdays span{display:flex;align-items:center;justify-content:center;width:100%}
+.calendar-mini .days{display:grid;grid-template-columns:repeat(7,1fr);grid-auto-rows:22px; /* 기존 28px에서 축소 */  gap:6px 6px;align-content:start;padding:0 6px;justify-items:center}
+.calendar-mini .days div{display:flex;align-items:center;justify-content:center;width:100%;font-size:12px; /* 약간 축소 */  height:auto;line-height:1;box-sizing:border-box;white-space:nowrap;}
+.calendar-mini .days .muted{color:#d2d6e2}
+.calendar-mini .days .today{background:#e9efff;color:#122168;border-radius:6px;padding:2px 6px;font-weight:700}
+
+/* EXPANDED / OVERLAY */
+.month-overlay{position:absolute;inset:0;z-index:40;display:flex;align-items:flex-start;justify-content:center;padding:22px;pointer-events:auto;background:transparent}
+.month-overlay .month.expanded{position:relative;inset:0;margin:0;width:100%;height:100%;max-width:none;border-radius:18px;display:flex;flex-direction:column;align-items:center;padding-top:34px}
+.overlay-close{position:absolute;top:18px;right:18px;width:36px;height:36px;border-radius:8px;border:none;background:#fff;color:#222;box-shadow:0 6px 16px rgba(0,0,0,.12);cursor:pointer;z-index:60;display:grid;place-items:center}
+
+/* hide other cards when expanded */
+.right.expanded .month:not(.expanded){opacity:0;pointer-events:none}
+.right.expanded .close-btn{visibility:visible}
+
+/* --- month detail / big calendar / tasks --- */
+.month-detail {
+  position: absolute;
+  inset: 0;                 /* fill the right area */
+  display: none;
+  z-index: 80;
+  box-sizing: border-box;
+  padding: 18px;
+  pointer-events: auto;
+  overflow: auto;
+}
+
+/* visible state */
+.month-detail[data-open="true"] { display: block; }
+
+/* inner panel styling (matches referenced design) */
+.month-detail-inner{
   width: 100%;
   height: 100%;
-  padding-top: 38px;
-  transition: none;
-}
-.month.expanded .calendar-mini {
-  width: 96%;
-  min-height: 340px;
-  font-size: 18px;
-  padding: 24px 18px 32px 18px;
-}
-.month.expanded .month-header {
-  font-size: 32px;
-  margin-top: 10px;
-}
-.month.expanded .month-en {
-  font-size: 18px;
-  margin-bottom: 18px;
-}
-.month.expanded .calendar-mini .wdays {
-  font-size: 18px;
-  margin-bottom: 10px;
-}
-.month.expanded .calendar-mini .days div {
-  font-size: 20px;
-  height: 38px;
-}
-.close-btn {
-  z-index: 20;
-}
-.right.expanded .close-btn {
-  visibility: visible;
-}
-
-/* 월 제목 가운데 정렬 (기본 / 확장 둘 다 적용) */
-.month-header,
-.month-en {
-  width: 100%;
-  text-align: center;
-  padding: 0 10px;    /* 좌우 여유 */
+  background: var(--navy, #14183a);
+  color: #fff;
+  border-radius: 12px;
+  padding: 28px;
   box-sizing: border-box;
-}
-
-/* 오버레이(확장) 상태에서 카드 내부 정렬을 가운데로 변경 */
-.month-overlay .month.expanded {
-  align-items: center; /* header가 가운데 정렬되도록 */
-}
-
-/* 오버레이(복제본) : 우측 패널 위에 뜨는 레이어 */
-.month-overlay{
-  position:absolute;
-  inset:0;
-  z-index:40;
-  display:flex;
-  align-items:flex-start;
-  justify-content:center;
-  padding:22px;
-  pointer-events:auto;
-  background:transparent;
-}
-
-/* 오버레이 안 복제된 카드가 우측 패널 전체를 채우도록 (유지) */
-.month-overlay .month.expanded{
-  position:relative;
-  inset:0;
-  margin:0;
-  width:100%;
-  height:100%;
-  max-width:none;
-  border-radius:18px;
   display:flex;
   flex-direction:column;
-  align-items:center; /* 제목 가운데 정렬 */
-  padding-top:36px;
+  gap: 12px;
+  overflow: auto;
 }
 
-/* 오버레이 내 닫기 버튼 */
-.overlay-close{
+/* close button placed inside right-top of the inner panel */
+.month-detail-close {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  width:40px; height:40px;
+  border-radius:50%;
+  border:0;
+  background:#fff;
+  color:#122168;
+  font-size:20px;
+  cursor:pointer;
+  z-index:90;
+}
+
+/* big calendar + tasks (kept compact) */
+.big-calendar { background:transparent; color:#fff; margin-bottom: 12px; }
+.big-calendar h2 { text-align:center; color:#fff; margin:-18px 0 6px; font-size:20px; }
+.big-calendar table { width:100%; border-collapse:collapse; table-layout:fixed; }
+.big-calendar thead th { color:rgba(255,255,255,0.75); font-weight:600; padding:10px 6px; }
+.big-calendar td { height:64px; vertical-align:top; padding:10px; position:relative; box-sizing:border-box; }
+
+/* day progress */
+.day-progress { position:absolute; left:12px; right:12px; bottom:12px; height:8px; background:rgba(255,255,255,0.08); border-radius:6px; overflow:hidden; }
+.day-progress > i { display:block; height:100%; width:0; background:linear-gradient(90deg,#2b5fff,#66b0ff); }
+
+/* tasks list styling */
+.month-tasks { margin-top:8px; display:flex; flex-direction:column; gap:10px; }
+.task { display:flex; gap:12px; align-items:center; padding:10px; border-radius:10px; background:rgba(255,255,255,0.03); }
+.task .left { width:100px; text-align:left; font-weight:700; font-size:14px; color:#fff; }
+.task .mins { display:inline-block; margin-top:6px; background:rgba(255,255,255,0.06); padding:4px 6px; border-radius:10px; font-size:12px; color:#fff; font-weight:700; }
+.task .bar { flex:1; height:8px; background:rgba(255,255,255,0.06); border-radius:6px; overflow:hidden; }
+.task .bar > i { display:block; height:100%; width:0; background:#fff; opacity:0.95; }
+.task .tag { margin-left:12px; padding:6px 8px; border-radius:8px; font-weight:800; color:#122168; }
+
+/* filters */
+.task-filters { display:flex; gap:8px; margin-bottom:8px; }
+.filter-btn { background:rgba(255,255,255,0.06); color:#fff; padding:6px 10px; border-radius:999px; cursor:pointer; border:0; font-weight:700; }
+.filter-btn.active { background:#fff; color:#122168; }
+
+/* media */
+@media (max-width: 900px){
+  .month-detail-inner { padding:18px; }
+  .big-calendar td { height:48px; padding:6px; }
+  .task .left { width:80px; font-size:13px; }
+}
+@media (max-width:1100px){ .calendar-grid{grid-template-columns:repeat(3,1fr)} .left{width:52%} .right{width:48%} }
+@media (max-width:800px){ .app{flex-direction:column} .left,.right{width:100%;height:auto} .calendar-grid{grid-template-columns:repeat(2,1fr)} }
+
+/* below change */
+/* left-inner: 삽입된 stopwatch 내용 중앙 정렬(좌측 전체 레이아웃에는 영향 없음) */
+.left-inner {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+/* 삽입된 stopwatch 내부의 페이지 헤더/타이틀/내부 pill(중복 Timer)만 숨김 */
+.left-inner .title,
+.left-inner h1,
+.left-inner header,
+.left-inner .page-header,
+.left-inner .pill,
+.left-inner a.pill {
+  display: none !important;
+}
+
+/* history 레이아웃의 하단 네비용 pill은 유지되도록 범위 주의: #stopwatchRoot 내부만 숨기는 규칙을 먼저 적용 */
+#stopwatchRoot .pill { display: none !important; }
+
+/* 하단 기본 pill 위치 보정(역시 history 레이아웃의 버튼 유지) */
+.pill {
+  position: absolute;
+  right: 28px;
+  bottom: 24px;
+  z-index: 30;
+}
+
+/* 우측 달력 아이콘 위치 고정 (달력 표시 복구에 영향 없음) */
+.right-icons {
+  position:absolute;
+  top:18px;
+  left:18px;
+  display:flex;
+  gap:12px;
+  z-index:60;
+}
+
+/* right-icons 내부의 a.icon도 기존 .icon 스타일과 동일하게 보이도록 */
+.right-icons { display:flex; gap:12px; align-items:center; }
+.right-icons .icon{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  width:40px;
+  height:40px;
+  border-radius:10px;
+  background:#fff;
+  box-shadow:0 6px 18px rgba(0,0,0,.06);
+  text-decoration:none;
+  color:inherit;
+  padding:8px;
+}
+
+/* svg 크기/색 보정(필요하면 수정) */
+.right-icons .icon svg{ width:20px; height:20px; display:block; }
+.right-icons .icon:hover{ transform:translateY(-2px); transition:transform .12s ease; }
+
+/* 보장: 좌측이 우측 레이아웃을 덮지 않음 */
+.left { overflow: visible; }
+/* fully replace right area when .replaced-right is active */
+.right.replaced-right {
+  background: transparent;
+  padding: 0;
+}
+
+/* root wrapper that replaces the right panel */
+.month-detail-root {
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+  position:relative;
+  padding:18px;
+}
+
+/* CLOSE btn (top-right) */
+.month-detail-close, #detailClose {
   position:absolute;
   top:18px;
   right:18px;
-  width:36px;
-  height:36px;
-  border-radius:10px;
-  border:none;
-  background:#fff;
-  color:#222;
-  box-shadow:0 6px 16px rgba(0,0,0,0.12);
-  cursor:pointer;
-  z-index:60;
-  font-size:18px;
-  display:grid;
-  place-items:center;
+  width:40px;height:40px;border-radius:50%;
+  border:0;background:#fff;color:#122168;font-size:20px;cursor:pointer;z-index:20;
 }
 
-/* 반투명 배경 원하면 아래처럼 활성화 (선택사항) */
-/* .month-overlay { background: rgba(0,0,0,0.03); } */
+/* top area: large calendar with light blue background (image2 느낌) */
+.detail-top {
+  background: #e9eefc; /* 연한 파랑 */
+  border-radius:12px;
+  padding:22px;
+  box-shadow: 0 10px 24px rgba(12,16,40,0.06);
+  flex: 0 0 auto;
+}
 
-/* 반응형 */
-@media (max-width: 1200px) {
-  .calendar-grid { grid-template-columns: repeat(3, 1fr); }
+/* big calendar inside top */
+.detail-top .detail-calendar .big-calendar { background: transparent; color:#122168; }
+.detail-top .big-calendar h2 { text-align:center; color:#122168; margin:-8px 0 8px; }
+.detail-top .big-calendar table { width:100%; border-collapse:collapse; table-layout:fixed; }
+.detail-top .big-calendar thead th { color: rgba(0,0,0,0.6); padding:8px 6px; font-weight:600; }
+.detail-top .big-calendar td { height:64px; vertical-align:top; padding:8px; position:relative; }
+
+/* small progress inside day cell */
+.detail-top .day-progress { position:absolute; left:12px; right:12px; bottom:10px; height:8px; background: rgba(0,0,0,0.06); border-radius:6px; overflow:hidden;}
+.detail-top .day-progress > i { display:block; height:100%; width:0; background: linear-gradient(90deg,#2b5fff,#66b0ff); }
+
+/* bottom area: white tasks panel */
+.detail-bottom {
+  background: #fff;
+  border-radius: 12px;
+  padding: 18px;
+  box-sizing: border-box;
+  overflow:auto;
+  flex: 1 1 auto; /* fill remaining vertical space */
 }
-@media (max-width: 900px) {
-  .calendar-grid { grid-template-columns: repeat(2, 1fr); }
+
+/* filters in white area: left top */
+.detail-bottom .task-filters { margin-bottom:12px; display:flex; gap:8px; }
+.detail-bottom .filter-btn { background:#f1f3fb; color:#122168; padding:6px 10px; border-radius:999px; border:0; cursor:pointer; }
+.detail-bottom .filter-btn.active { background:#122168; color:#fff; }
+
+/* tasks list */
+.detail-bottom .detail-tasks .task { display:flex; gap:12px; align-items:center; padding:12px; border-radius:10px; background:#fff; box-shadow: 0 6px 12px rgba(12,16,40,0.04); margin-bottom:10px; }
+.detail-bottom .task .left { width:100px; font-weight:700; color:#122168; }
+.detail-bottom .task .mins { margin-top:6px; background:#eef3ff; padding:4px 6px; border-radius:8px; font-size:12px; color:#122168; font-weight:700; display:inline-block; }
+.detail-bottom .task .bar { flex:1; height:8px; background:#f1f4fb; border-radius:6px; overflow:hidden; }
+.detail-bottom .task .bar > i { display:block; height:100%; width:0; background:linear-gradient(90deg,#2b5fff,#66b0ff); }
+.detail-bottom .task .tag { margin-left:12px; padding:6px 8px; border-radius:8px; font-weight:800; color:#122168; }
+
+/* --- Task bar: lighter blue background + softer fill --- */
+.task .bar,
+.detail-bottom .task .bar {
+  background: #eef6ff; /* 연한 파랑 배경(트랙) */
+  border-radius: 8px;
+  overflow: hidden;
+  height: 10px;
 }
-@media (max-width: 600px) {
-  .calendar-grid { grid-template-columns: 1fr; }
-  .month { max-width: 98vw; }
+
+.task .bar > i,
+.detail-bottom .task .bar > i {
+  display: block;
+  height: 100%;
+  width: 0;
+  background: linear-gradient(90deg, #9fbfff 0%, #cfe3ff 100%); /* 연하고 은은한 블루 그라데이션 */
+  box-shadow: none;
+  opacity: 0.95;
+  border-radius: 8px;
+}
+
+/* optional: 작은 카드/mini view 바 색상도 동일 계열로 보정 */
+.mini-month-progress i,
+.day-progress > i {
+  background: linear-gradient(90deg, #9fbfff 0%, #cfe3ff 100%);
+}
+
+/* --- Tag color adjustments (work / hobby / study) --- */
+/* Work: 연한 녹색 배경, 진한 녹색 텍스트 */
+.tag.work,
+.detail-bottom .task .tag.work {
+  background: #e7f9e8; /* 연한 초록 */
+  color: #11662a;      /* 진한 초록 텍스트 */
+  font-weight:700;
+}
+
+/* Hobby: 연한 주황/피치 배경, 진한 텍스트 */
+.tag.hobby,
+.detail-bottom .task .tag.hobby {
+  background: #fff3e6; /* 연한 피치 */
+  color: #7a4a1a;      /* 진한 브라운 톤 텍스트 */
+  font-weight:700;
+}
+
+/* Study: 연한 하늘/블루 배경, 진한 블루 텍스트 */
+.tag.study,
+.detail-bottom .task .tag.study {
+  background: #eaf6ff; /* 연한 하늘 */
+  color: #0f4aa6;      /* 진한 블루 텍스트 */
+  font-weight:700;
+}
+
+/* Ensure contrast / padding */
+.tag, .detail-bottom .task .tag {
+  padding: 6px 10px;
+  border-radius: 8px;
+  font-size: 12px;
+}
+
+/* 작은 보정: time / mins chip 대비 */
+.task .left .mins, .task .left .mins {
+  background: rgba(15,74,166,0.06); /* 더 연한 음영 */
+  color: #0f4aa6;
+  font-weight:700;
+  padding: 4px 6px;
+  border-radius: 8px;
+}
+
+/* 작은 왼쪽 박스(썸네일 / 시간 표시)를 연한 파랑 배경으로 변경 */
+.task .left,
+.detail-bottom .task .left {
+  background: linear-gradient(180deg,#eef6ff 0%, #e6f3ff 100%) !important;
+  color: #0f4aa6 !important; /* 진한 파랑 텍스트 */
+  border-radius: 6px;
+  box-shadow: none;
+}
+
+/* 내부의 분(mins) 칩도 연하게 맞춤 */
+.task .left .mins,
+.detail-bottom .task .left .mins {
+  background: rgba(15,74,166,0.08) !important; /* 연한 블루 반투명 */
+  color: #0f4aa6 !important;
+}
+
+/* 진행 바 색상(이미 적용된 경우 보정) */
+.task .bar > i,
+.detail-bottom .task .bar > i,
+.day-progress > i {
+  background: linear-gradient(90deg,#9fbfff 0%, #cfe3ff 100%) !important;
 }

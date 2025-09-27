@@ -1,61 +1,274 @@
 <!doctype html>
 <html lang="ko">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Focus time</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Focus time — history</title>
+
+  <!-- history 스타일 -->
+  <link rel="stylesheet" href="style.css" />
+  <!-- StopWatch 스타일은 주입된 마크업에 필요하므로 미리 로드 -->
+  <link rel="stylesheet" href="../stopwatch/StopWatch.css" />
 </head>
 <body>
   <div class="app">
-    <!-- 좌측: 타이머 -->
     <aside class="left">
       <header class="left-header">Focus time</header>
-      <div class="timer-box">
-        <div id="timer" class="timer">00:00</div>
-        <button id="btnStart" class="btn">start</button>
-      </div>
-      <div class="left-footer">
-        <button class="pill">timer ▸</button>
-      </div>
+
+      <!-- 삽입 루트: 여기로 stopwatch 또는 timer 핵심이 '하나만' 들어감 -->
+      <div id="stopwatchRoot" class="left-inner" aria-label="stopwatch root"></div>
+
+      <!-- 상단/외부 토글 숨김: 내부 하단 토글만 사용 -->
+      <button id="openTimerPanel" class="pill" style="display:none">timer ▸</button>
     </aside>
 
-    <!-- 우측: 대시보드 -->
     <main class="right">
+      <nav class="right-icons" aria-hidden="false">
+        <a class="icon" href="http://127.0.0.1:5500/todolist/TodoList.html" title="list" aria-label="todo">
+          <svg width="20" height="20" viewBox="0 0 24 24"><path fill="#222" d="M4 6h16v2H4zM4 11h16v2H4zM4 16h16v2H4z"></path></svg>
+        </a>
+        <a class="icon" href="http://127.0.0.1:5500/history/index.html" title="stats" aria-label="history">
+          <svg width="20" height="20" viewBox="0 0 24 24"><rect x="4" y="10" width="3" height="10" fill="#222"></rect><rect x="10.5" y="6" width="3" height="14" fill="#222"></rect><rect x="17" y="2" width="3" height="18" fill="#222"></rect></svg>
+        </a>
+        <a class="icon" href="http://127.0.0.1:5500/login/Login.html" title="profile" aria-label="profile">
+          <svg width="20" height="20" viewBox="0 0 24 24"><circle cx="12" cy="8" r="3" stroke="#222" stroke-width="1.4" fill="none"></circle><path d="M4 20c0-4 4-7 8-7s8 3 8 7" stroke="#222" stroke-width="1.4" fill="none"></path></svg>
+        </a>
+      </nav>
+
       <div class="topbar">
-        <div class="icons">
-          <!-- 목록 아이콘 -->
-          <span class="icon">
-            <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
-              <circle cx="6" cy="7" r="2" fill="#222"/>
-              <rect x="11" y="6" width="11" height="2" rx="1" fill="#222"/>
-              <circle cx="6" cy="14" r="2" fill="#222"/>
-              <rect x="11" y="13" width="11" height="2" rx="1" fill="#222"/>
-              <circle cx="6" cy="21" r="2" fill="#222"/>
-              <rect x="11" y="20" width="11" height="2" rx="1" fill="#222"/>
-            </svg>
-          </span>
-          <!-- 통계 아이콘 -->
-          <span class="icon">
-            <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
-              <rect x="5" y="15" width="4" height="8" rx="2" fill="#222"/>
-              <rect x="12" y="9" width="4" height="14" rx="2" fill="#222"/>
-              <rect x="19" y="5" width="4" height="18" rx="2" fill="#222"/>
-            </svg>
-          </span>
-          <!-- 프로필 아이콘 -->
-          <span class="icon">
-            <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
-              <circle cx="14" cy="12" r="5" stroke="#222" stroke-width="2"/>
-              <path d="M6 23c0-4 4-6 8-6s8 2 8 6" stroke="#222" stroke-width="2" fill="none"/>
-            </svg>
-          </span>
-        </div>
-        <button class="close-btn" title="닫기">×</button>
+        <button class="close-btn" id="globalClose" title="닫기">×</button>
       </div>
+
+      <!-- 기존 그리드 -->
       <section id="calendarGrid" class="calendar-grid" aria-label="연간 히스토리 달력"></section>
+
+      <!-- 상세 패널: 초기 숨김, JS로 열고 닫음 -->
+      <div id="monthDetail" class="month-detail" aria-hidden="true" data-open="false">
+        <div class="month-detail-inner" role="region" aria-label="month detail">
+          <!-- JS가 여기서 큰 달력과 task list 렌더링 -->
+        </div>
+        <button id="monthDetailClose" class="month-detail-close" aria-label="닫기">×</button>
+      </div>
     </main>
   </div>
+
+  <!-- 중앙 핵심: StopWatch/Timer를 '하나만' 주입하고 내부 하단 토글 버튼으로 전환 -->
+  <script>
+    // 이전에 주입한 리소스 제거
+    function cleanupInjected() {
+      const root = document.getElementById('stopwatchRoot');
+      if (root) root.innerHTML = '';
+      document.querySelectorAll('[data-injected]').forEach(el => el.remove());
+      try { if (window.Timer && typeof window.Timer.destroy === 'function') window.Timer.destroy(); } catch(e){}
+      try { if (window.StopWatch && typeof window.StopWatch.destroy === 'function') window.StopWatch.destroy(); } catch(e){}
+    }
+
+    // HTML 텍스트에서 핵심 카드 노드만 추출 (전역 header/nav 제거, 내부 버튼 유지)
+    function extractMainNodeFromHTML(htmlText) {
+      const doc = new DOMParser().parseFromString(htmlText, 'text/html');
+      const candidate = doc.querySelector('.container') ||
+                        doc.querySelector('.stopwatch') ||
+                        doc.querySelector('.timer') ||
+                        doc.querySelector('.card') ||
+                        doc.querySelector('main') ||
+                        doc.body;
+      const node = candidate.cloneNode(true);
+      node.querySelectorAll('header, .page-header, .title, nav, .nav-bar').forEach(el => el.remove());
+      // Prevent injected links from navigating away; convert timer/stopwatch links to buttons later
+      Array.from(node.querySelectorAll('a')).forEach(a => a.removeAttribute('href'));
+      return node;
+    }
+
+    function injectStyleLink(href, tag){
+      if (document.querySelector('link[data-injected="'+tag+'"]')) return;
+      const l = document.createElement('link');
+      l.rel = 'stylesheet';
+      l.href = href;
+      l.setAttribute('data-injected', tag);
+      document.head.appendChild(l);
+    }
+    function injectScriptSrc(src, tag){
+      if (document.querySelector('script[data-injected="'+tag+'"]')) return;
+      const s = document.createElement('script');
+      s.src = src;
+      s.setAttribute('data-injected', tag);
+      document.body.appendChild(s);
+    }
+
+    // 공통: 변환 - 노드 내부에서 a 태그를 버튼으로 바꿔 내부 토글을 연결
+    function convertInternalLinks(node) {
+      Array.from(node.querySelectorAll('a')).forEach(a=>{
+        const text = a.innerHTML;
+        const isTimer = /\/timer|timer\.html/i.test(a.getAttribute('href')||'') || /timer/i.test(a.textContent||'');
+        const isStopwatch = /\/stopwatch|stopwatch\.html/i.test(a.getAttribute('href')||'') || /stopwatch/i.test(a.textContent||'');
+        if (isTimer || isStopwatch) {
+          const btn = document.createElement('button');
+          btn.type = 'button';
+          btn.className = a.className || '';
+          btn.innerHTML = text;
+          if (isTimer) btn.addEventListener('click', ()=> window.loadTimerLocal());
+          if (isStopwatch) btn.addEventListener('click', ()=> window.loadStopwatchLocal());
+          a.replaceWith(btn);
+        } else {
+          // neutralize other links
+          const span = document.createElement('span');
+          span.innerHTML = text;
+          a.replaceWith(span);
+        }
+      });
+    }
+
+    // StopWatch 삽입 (로컬 파일)
+    async function loadStopwatchLocal(){
+      cleanupInjected();
+      const root = document.getElementById('stopwatchRoot');
+      if(!root) return;
+      try{
+        const res = await fetch('../stopwatch/StopWatch.html');
+        if(!res.ok) throw new Error('StopWatch fetch failed: ' + res.status);
+        const txt = await res.text();
+        injectStyleLink('../stopwatch/StopWatch.css','stopwatch-css');
+        // append script after injecting DOM so it can bind
+        const node = extractMainNodeFromHTML(txt);
+        node.setAttribute('data-injected','stopwatch-node');
+
+        // ensure single internal toggle button (id="timer-page")
+        if (!node.querySelector('#timer-page')) {
+          const wrap = document.createElement('div');
+          wrap.className = 'stopwatch-btn';
+          const btn = document.createElement('button');
+          btn.id = 'timer-page';
+          btn.textContent = 'Timer';
+          wrap.appendChild(btn);
+          node.appendChild(wrap);
+        }
+
+        convertInternalLinks(node);
+        root.appendChild(node);
+        injectScriptSrc('../stopwatch/StopWatch.js','stopwatch-script');
+
+        // bind internal toggle
+        setTimeout(()=>{
+          const btn = document.getElementById('timer-page');
+          if(btn) btn.onclick = async (e)=>{ e.preventDefault(); await loadTimerLocal(); };
+        },120);
+
+      }catch(err){
+        console.error('loadStopwatchLocal error', err);
+      }
+    }
+
+    // Timer 삽입 (로컬 파일) — 사용자가 제공한 구조를 그대로 로드
+    async function loadTimerLocal(){
+      cleanupInjected();
+      const root = document.getElementById('stopwatchRoot');
+      if(!root) return;
+      try {
+        const res = await fetch('../timer/Timer.html');
+        if(!res.ok) throw new Error('Timer fetch failed: ' + res.status);
+        const txt = await res.text();
+        injectStyleLink('../timer/Timer.css','timer-css');
+
+        const node = extractMainNodeFromHTML(txt);
+        node.setAttribute('data-injected','timer-node');
+
+        // ensure single internal toggle button (id="stopwatch-page")
+        if (!node.querySelector('#stopwatch-page')) {
+          const wrap = document.createElement('div');
+          wrap.className = 'stopwatch-btn';
+          const btn = document.createElement('button');
+          btn.id = 'stopwatch-page';
+          btn.textContent = 'Stopwatch';
+          wrap.appendChild(btn);
+          node.appendChild(wrap);
+        }
+
+        convertInternalLinks(node);
+        root.appendChild(node);
+        injectScriptSrc('../timer/Timer.js','timer-script');
+
+        // bind internal toggle
+        setTimeout(()=>{
+          const btn = document.getElementById('stopwatch-page');
+          if(btn) btn.onclick = async (e)=>{ e.preventDefault(); await loadStopwatchLocal(); };
+        },120);
+
+      } catch(err){
+        console.error('loadTimerLocal error', err);
+      }
+    }
+
+    // 전역으로 노출해 내부 변환에서도 호출 가능
+    window.loadStopwatchLocal = loadStopwatchLocal;
+    window.loadTimerLocal = loadTimerLocal;
+
+    // 초기 로드: 스탑워치 표시, 우측 달력(app.js) 영향 없음
+    document.addEventListener('DOMContentLoaded', ()=>{
+      loadStopwatchLocal();
+    });
+  </script>
+
+  <!-- 반드시 history 캘린더 스크립트는 유지 -->
   <script src="app.js"></script>
+  <script>
+    // 좌측 내부에서 발생하는 <a> 클릭을 가로채서 페이지 이동을 막고,
+    // 대신 좌측 영역을 교체하도록 로더를 호출합니다.
+    document.addEventListener('click', (ev) => {
+      const a = ev.target.closest && ev.target.closest('a');
+      if (!a) return;
+      const href = (a.getAttribute('href') || '').toLowerCase();
+
+      // 로컬 타이머/스톱워치 경로가 포함된 링크면 네비게이션 차단 후 내부 로드
+      if (href.includes('/timer') || href.endsWith('timer.html')) {
+        ev.preventDefault();
+        if (typeof window.loadTimerLocal === 'function') {
+          window.loadTimerLocal();
+        }
+        return;
+      }
+      if (href.includes('/stopwatch') || href.endsWith('stopwatch.html') || href.endsWith('stopwatch')) {
+        ev.preventDefault();
+        if (typeof window.loadStopwatchLocal === 'function') {
+          window.loadStopwatchLocal();
+        }
+        return;
+      }
+
+      // 그 외 로컬 링크(프로젝트 내부)로 바로 가는 것도 방지하고 싶으면 아래 주석을 해제
+      // if (href.startsWith('/') || href.startsWith(window.location.origin)) { ev.preventDefault(); }
+}, { capture: true });
+
+    // #stopwatchRoot 내부 클릭을 가로채 네비게이션 차단 및 내부 뷰 토글 강제
+    document.addEventListener('click', function (e) {
+      const root = document.getElementById('stopwatchRoot');
+      if (!root) return;
+      const target = e.target.closest && e.target.closest('#timer-page, #stopwatch-page, #left-toggle, a, button');
+      if (!target) return;
+
+      // 내부 토글 버튼 처리 (페이지 이동 금지)
+      if (target.id === 'timer-page') {
+        e.preventDefault(); e.stopPropagation();
+        if (typeof window.loadTimerLocal === 'function') window.loadTimerLocal();
+        return;
+      }
+      if (target.id === 'stopwatch-page' || target.id === 'left-toggle') {
+        e.preventDefault(); e.stopPropagation();
+        if (typeof window.loadStopwatchLocal === 'function') window.loadStopwatchLocal();
+        return;
+      }
+
+      // #stopwatchRoot 내부의 다른 <a> 태그 클릭이면 기본 이동 차단
+      if (root.contains(target) && target.tagName === 'A') {
+        e.preventDefault(); e.stopPropagation();
+        return;
+      }
+
+      // 버튼 요소가 내부에 있고 기본 동작이 있을 수 있으므로 안전 차단
+      if (root.contains(target) && (target.tagName === 'BUTTON' || target.tagName === 'INPUT')) {
+        // 허용할 내부 버튼 이벤트는 이미 바인딩되어 있으므로 여기서는 이동만 차단
+        e.stopPropagation();
+      }
+    }, true);
+  </script>
 </body>
 </html>
