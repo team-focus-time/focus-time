@@ -7,16 +7,114 @@ body {
   width: 100%;
   height: 100vh;
   background-color: #0a1a4f;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.text-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
 }
 
 h1 {
+  font-size: 52px;
   margin: 0;
   color: white;
+  padding-bottom: 20px;
+}
+
+.sub {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: -40px;
+  left: 143px;
+  gap: 4px;
+}
+
+span {
+  color: #5b73c1;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.text-wrapper p {
+  color: white;
+  font-size: 14px;
+  margin: 0;
 }
 
 button {
   border: 0;
-  background-color: white;
+  background-color: #5b73c1;
   margin: 10px;
-  padding: 10px 30px;
+  padding: 10px 40px;
+  color: white;
+  border-radius: 5px;
+  font-size: 15px;
+  margin-top: 50px;
+}
+
+.people-wrapper {
+  display: flex;
+  gap: 30px;
+  margin-top: 50px;
+}
+
+.people {
+  background-color: white;
+  border-radius: 10px;
+  width: 220px;
+  height: 250px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.bg {
+  width: 80px;
+  height: 80px;
+  border-radius: 40px;
+  background-size: cover;
+  background-position: center;
+}
+
+.one {
+  background-image: url(/imges/hsg.png);
+}
+
+.two {
+  background-image: url(/imges/htu.png);
+}
+
+.three {
+  background-image: url(/imges/jey.png);
+}
+
+.four {
+  background-image: url(/imges/ywj.png);
+}
+
+.name {
+  font-size: 15px;
+  font-weight: 800;
+  padding: 16px 0px 20px 0px;
+}
+
+.people p {
+  margin: 0;
+  font-size: 13px;
+  color: #747474;
+  margin: 3px;
+  width: 190px;
+  text-align: center;
+  word-wrap: break-word;
+  word-break: break-word;
+  white-space: normal;
 }
