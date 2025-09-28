@@ -9,12 +9,13 @@ body {
   font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
     "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
 }
+/* 상단 네브바 */
 
 .nav-bar {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 20px 60px;
+  padding: 20px 80px;
   width: 100%;
   box-sizing: border-box;
 }
@@ -40,6 +41,33 @@ body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+}
+
+.user-menu {
+  position: relative;
+}
+
+.logout-menu {
+  display: none;
+  position: absolute;
+  top: 25px;
+  right: 0;
+  text-align: center;
+  background-color: #000000;
+  border-radius: 5px;
+  padding: 5px 0;
+  min-width: 100px;
+  z-index: 100;
+  font-size: 14px;
+}
+.logout-menu a {
+  display: block;
+  padding: 8px 15px;
+  text-decoration: none;
+}
+
+.logout-menu a:hover {
+  color: #ffd700;
 }
 
 h1 {
@@ -92,10 +120,17 @@ h1 {
   font-weight: bold;
 }
 
+.stopwatch-buttons button:hover {
+  background-color: #ffd700;
+  border-color: #ffd700;
+  transition: 0.3s ease;
+}
+
+/* 타이머로 바뀌는 버튼 */
 .timer-btn {
   position: absolute;
-  right: 60px;
-  bottom: 50px;
+  right: 80px;
+  bottom: 150px;
 }
 
 .timer-btn button {
@@ -109,7 +144,95 @@ h1 {
   color: #fff;
   font-weight: bold;
 }
+
+.timer-btn button:hover {
+  color: #ffd700;
+  border-color: #ffd700;
+  transform: scale(1.1);
+  transition: 0.3s ease;
+}
+
 .fa-play {
   font-size: 10px;
   margin-left: 5px;
+}
+
+.footer-container {
+  display: flex;
+  flex-direction: column;
+}
+
+/* footer */
+
+.first-footer {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  font-size: 20px;
+}
+
+.first-footer i:hover {
+  color: #ffd700;
+  cursor: pointer;
+  transform: scale(1.2);
+  transition: 0.3s ease;
+}
+.second-footer {
+  display: flex;
+  justify-content: center;
+}
+
+.second-footer ul {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+}
+
+.second-footer ul li,
+a {
+  text-decoration: none;
+  list-style: none;
+  color: #fff;
+}
+
+.second-footer a:hover {
+  border-bottom: 1px solid #fff;
+  /* color: #ffd700; */
+}
+
+.second-footer {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  font-size: 14px;
+  padding: 0;
+}
+
+.third-footer {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 15px;
+  color: #949494;
+  font-size: small;
+}
+
+@media (max-width: 768px) {
+  .timer-btn {
+    position: static;
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
+  }
+
+  .first-footer {
+    margin-top: 20px;
+    align-items: center;
+  }
+  .second-footer ul {
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    padding: 0;
+    font-size: small;
+  }
 }

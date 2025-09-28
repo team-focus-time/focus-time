@@ -1,3 +1,18 @@
+const userIcon = document.getElementById("user-logout");
+const logoutMenu = document.getElementById("logout-menu");
+
+userIcon.addEventListener("click", function (e) {
+  e.preventDefault();
+  logoutMenu.style.display =
+    logoutMenu.style.display === "block" ? "none" : "block";
+});
+
+document.addEventListener("click", function (e) {
+  if (!userIcon.contains(e.target) && !dropdownMenu.contains(e.target)) {
+    dropdownMenu.style.display = "none";
+  }
+});
+
 // 전역 변수
 let currentDate = new Date();
 let selectedDate = new Date();
@@ -12,20 +27,40 @@ document.addEventListener("DOMContentLoaded", function () {
   loadTodos();
 
   // 이벤트 리스너 등록
-  document.getElementById("prevBtn").addEventListener("click", () => changeDate(-1));
-  document.getElementById("nextBtn").addEventListener("click", () => changeDate(1));
+  document
+    .getElementById("prevBtn")
+    .addEventListener("click", () => changeDate(-1));
+  document
+    .getElementById("nextBtn")
+    .addEventListener("click", () => changeDate(1));
 
-  document.getElementById("openModalBtn").addEventListener("click", toggleAddModal);
-  document.getElementById("closeModalBtn").addEventListener("click", toggleAddModal);
+  document
+    .getElementById("openModalBtn")
+    .addEventListener("click", toggleAddModal);
+  document
+    .getElementById("closeModalBtn")
+    .addEventListener("click", toggleAddModal);
   document.getElementById("addTaskBtn").addEventListener("click", saveTodo);
 
-  document.getElementById("hoursUpBtn").addEventListener("click", () => adjustTime("hours", 1));
-  document.getElementById("minutesUpBtn").addEventListener("click", () => adjustTime("minutes", 1));
-  document.getElementById("hoursDownBtn").addEventListener("click", () => adjustTime("hours", -1));
-  document.getElementById("minutesDownBtn").addEventListener("click", () => adjustTime("minutes", -1));
+  document
+    .getElementById("hoursUpBtn")
+    .addEventListener("click", () => adjustTime("hours", 1));
+  document
+    .getElementById("minutesUpBtn")
+    .addEventListener("click", () => adjustTime("minutes", 1));
+  document
+    .getElementById("hoursDownBtn")
+    .addEventListener("click", () => adjustTime("hours", -1));
+  document
+    .getElementById("minutesDownBtn")
+    .addEventListener("click", () => adjustTime("minutes", -1));
 
-  document.getElementById("hoursInput").addEventListener("input", updateTimeDisplay);
-  document.getElementById("minutesInput").addEventListener("input", updateTimeDisplay);
+  document
+    .getElementById("hoursInput")
+    .addEventListener("input", updateTimeDisplay);
+  document
+    .getElementById("minutesInput")
+    .addEventListener("input", updateTimeDisplay);
 
   // 카테고리 드롭다운 색상
   const categorySelect = document.getElementById("categorySelect");
@@ -39,7 +74,8 @@ document.addEventListener("DOMContentLoaded", function () {
 // 날짜 표시
 function updateDateDisplay() {
   const options = { weekday: "long", day: "numeric", month: "short" };
-  document.getElementById("currentDate").textContent = currentDate.toLocaleDateString("en-US", options);
+  document.getElementById("currentDate").textContent =
+    currentDate.toLocaleDateString("en-US", options);
 }
 
 // 날짜 변경
@@ -77,7 +113,8 @@ function generateCalendar() {
     dayElement.textContent = date.getDate();
 
     if (date.getMonth() !== month) dayElement.classList.add("other-month");
-    if (date.toDateString() === selectedDate.toDateString()) dayElement.classList.add("selected");
+    if (date.toDateString() === selectedDate.toDateString())
+      dayElement.classList.add("selected");
 
     dayElement.addEventListener("click", () => {
       selectedDate = new Date(date);
@@ -165,7 +202,10 @@ function startEditTodo(todoId, textElement) {
   input.value = textElement.textContent;
 
   input.addEventListener("blur", () => finishEditTodo(todoId, input));
-  input.addEventListener("keypress", (e) => e.key === "Enter" && finishEditTodo(todoId, input));
+  input.addEventListener(
+    "keypress",
+    (e) => e.key === "Enter" && finishEditTodo(todoId, input)
+  );
 
   textElement.parentNode.replaceChild(input, textElement);
   input.focus();
@@ -211,16 +251,23 @@ function toggleAddModal() {
 
 // 시간
 function adjustTime(type, amount) {
-  const input = document.getElementById(type === "hours" ? "hoursInput" : "minutesInput");
+  const input = document.getElementById(
+    type === "hours" ? "hoursInput" : "minutesInput"
+  );
   let value = parseInt(input.value) + amount * (type === "minutes" ? 5 : 1);
-  input.value = type === "hours" ? Math.max(0, Math.min(23, value)) : Math.max(0, Math.min(59, value));
+  input.value =
+    type === "hours"
+      ? Math.max(0, Math.min(23, value))
+      : Math.max(0, Math.min(59, value));
   updateTimeDisplay();
 }
 
 function updateTimeDisplay() {
   const hours = parseInt(document.getElementById("hoursInput").value) || 0;
   const minutes = parseInt(document.getElementById("minutesInput").value) || 0;
-  document.getElementById("timeDisplayLarge").textContent = `${hours.toString().padStart(2, "0")}:${minutes.toString().padStart(2, "0")}`;
+  document.getElementById("timeDisplayLarge").textContent = `${hours
+    .toString()
+    .padStart(2, "0")}:${minutes.toString().padStart(2, "0")}`;
 }
 
 // 저장
