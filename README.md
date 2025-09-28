@@ -1,5 +1,7 @@
 # ⏰ 디지털 디톡스 FOCUS TIME
 
+![FOCUSTIME](image-3.png)
+
 ## 📍 프로젝트 소개
 
 > 코딩알려주는누나 바닐라 JS 프로젝트<br>
@@ -118,7 +120,7 @@
 
 ### 🖥 메인 화면
 
-![메인화면](https://github.com/user-attachments/assets/c897b62a-b4c3-43f4-9d73-ae6b26fee9af)
+![메인화면](https://github.com/user-attachments/assets/a8ea0a0a-2cfe-4779-a419-8c14cff0eb6d)
 
 - Intro 페이지입니다. 프로젝트 및 팀원들을 간단히 소개합니다.
 - Start 버튼을 눌러 서비스를 이용할 수 있습니다.
