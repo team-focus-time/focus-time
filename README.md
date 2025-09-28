@@ -1,6 +1,6 @@
 # ⏰ 디지털 디톡스 FOCUS TIME
 
-<img src="https://github.com/user-attachments/assets/43fd8171-9487-4036-88cc-99f5c3005a1e"/>
+![FOCUSTIME](image-3.png)
 
 ## 📍 프로젝트 소개
 
@@ -33,52 +33,59 @@
     </td>
   </tr>
   <tr>
-    <td align="center"><strong>장은영</strong></td>
-    <td align="center"><strong>양지원</strong></td>
-    <td align="center"><strong>허태웅</strong></td>
     <td align="center"><strong>황수곤</strong></td>
+    <td align="center"><strong>허태웅</strong></td>
+    <td align="center"><strong>장은영</strong></td>
+    <td align="center"><strong>양원지</strong></td>
   </tr>
 
   <tr>
-    <td align="center">
-      <a href="https://github.com/whynotKeys" target="_blank" rel="noopener noreferrer">
-        <img src="https://img.shields.io/badge/GitHub-000000?style=for-the-badge&logo=github&logoColor=white" alt="GitHub" />
-      </a>
-    </td>
-    <td align="center">
-      <a href="https://github.com/dong-fa" target="_blank" rel="noopener noreferrer">
-        <img src="https://img.shields.io/badge/GitHub-000000?style=for-the-badge&logo=github&logoColor=white" alt="GitHub" />
-      </a>
-    </td>
-    <td align="center">
-      <a href="https://github.com/hjb0304" target="_blank" rel="noopener noreferrer">
-        <img src="https://img.shields.io/badge/GitHub-000000?style=for-the-badge&logo=github&logoColor=white" alt="GitHub" />
-      </a>
-    </td>
     <td align="center">
       <a href="https://github.com/sugonhwang" target="_blank" rel="noopener noreferrer">
         <img src="https://img.shields.io/badge/GitHub-000000?style=for-the-badge&logo=github&logoColor=white" alt="GitHub" />
       </a>
     </td>
+    <td align="center">
+      <a href="https://github.com/heotaewoong" target="_blank" rel="noopener noreferrer">
+        <img src="https://img.shields.io/badge/GitHub-000000?style=for-the-badge&logo=github&logoColor=white" alt="GitHub" />
+      </a>
+    </td>
+    <td align="center">
+      <a href="https://github.com/skysas" target="_blank" rel="noopener noreferrer">
+        <img src="https://img.shields.io/badge/GitHub-000000?style=for-the-badge&logo=github&logoColor=white" alt="GitHub" />
+      </a>
+    </td>
+    <td align="center">
+      <a href="https://github.com/wonjiyang" target="_blank" rel="noopener noreferrer">
+        <img src="https://img.shields.io/badge/GitHub-000000?style=for-the-badge&logo=github&logoColor=white" alt="GitHub" />
+      </a>
+    </td>
   </tr>
   <tr>
-    <td align="center"><strong>팀원 · PL</strong></td>
-    <td align="center"><strong>팀원 · PL</strong></td>
-    <td align="center"><strong>팀원 · SM</strong></td>
     <td align="center"><strong>팀장 · PM</strong></td>
+    <td align="center"><strong>팀원 · SM</strong></td>
+    <td align="center"><strong>팀원 · PL</strong></td>
+    <td align="center"><strong>팀원 · PL</strong></td>
   </tr>
   <tr>
     <td>
       <ul>
-        <li>스톱워치</li>
-        <li>타이머</li>
-        <li>Navigation</li>
-        <li>Footer</li>
+        <li>투두리스트</li>
+        <li>프로젝트 관리</li>
+        <li>기획 및 발표</li>
       <ul>
     </td>
     <td>
       <ul>
-        <li>로그인 화면</li>
+          <li>Dashboard 메인</li>
+        <li>차트 랜더링</li>
+        <li>API</li>
+        <li>문서 작성</li>
+      <ul>
+    </td>
+    <td>
+      <ul>
+         <li>로그인 화면</li>
         <li>회원가입</li>
         <li>디자인</li>
         <li>Intro 페이지</li>
@@ -87,17 +94,10 @@
     </td>
     <td>
       <ul>
-        <li>Dashboard 메인</li>
-        <li>차트 랜더링</li>
-        <li>API</li>
-        <li>문서 작성</li>
-      <ul>
-    </td>
-    <td>
-      <ul>
-        <li>TodoList</li>
-        <li>프로젝트 관리</li>
-        <li>기획 및 발표</li>
+        <li>스톱워치</li>
+        <li>타이머</li>
+        <li>Navigation</li>
+        <li>Footer</li>
       <ul>
     </td>
   </tr>
@@ -120,9 +120,10 @@
 
 ### 🖥 메인 화면
 
-![메인화면](https://github.com/user-attachments/assets/c897b62a-b4c3-43f4-9d73-ae6b26fee9af)
+![메인화면](https://github.com/user-attachments/assets/a8ea0a0a-2cfe-4779-a419-8c14cff0eb6d)
 
-- FOCUS TIME 팀을 소개 합니다.
+- Intro 페이지입니다. 프로젝트 및 팀원들을 간단히 소개합니다.
+- Start 버튼을 눌러 서비스를 이용할 수 있습니다.
 
 ---
 
@@ -148,7 +149,7 @@
 
 ---
 
-### 🛒 상품 목록 & 상세 페이지
+### ✅ 투두 리스트
 
 ![상품상세1](https://github.com/user-attachments/assets/a6aa3d54-37a9-43c1-ac46-b88f802c6701)
 ![상품상세2](https://github.com/user-attachments/assets/5852712f-54ed-4434-ac18-53c0acd7e62c)
@@ -165,7 +166,7 @@
 
 ---
 
-### 🧺 장바구니
+### 📊 Dashboard
 
 ![장바구니](https://github.com/user-attachments/assets/218298da-936e-4adf-a6fa-e0fc977e9703)
 
@@ -175,36 +176,15 @@
 
 ---
 
-### 💳 결제하기
-
-![결제](https://github.com/user-attachments/assets/6ab672e9-b5da-4268-ac26-7c4a7273ccc1)
-
-- 배송지 정보는 로그인한 회원의 정보로 자동 입력되며 수정도 가능합니다.
-- 다양한 결제 수단
-  - 간편 결제(토스페이, 네이버 페이)
-  - 신용/체크카드
-  - 무통장 입금
-
----
-
-### 📦 구매 내역
-
-![구매내역1](https://github.com/user-attachments/assets/480efbb3-c302-47f5-b58f-92859b67f0af)
-![구매내역2](https://github.com/user-attachments/assets/19b25dd5-8fcf-4b47-978b-67d1b208b826)
-
-- 결제 완료 후, 구매 내역 페이지에서 다음 정보를 확인할 수 있습니다.
-  - 제품 정보
-  - 배송 상태
-  - 결제 수단 등 확인 가능
-
----
-
 ### 📌 향후 개선 계획
 
 - 모바일 성능 개선
 - 접근성 강화
   - Label 없는 Input 수정
   - aria-label 없는 아이콘 버튼 수정
+- 투두리스트 알람 기능
+- 플레이 리스트 API 기능 사용
+- 스타일 개선
 
 ---
 
