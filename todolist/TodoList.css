@@ -3,22 +3,251 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
     Ubuntu, Cantarell, sans-serif;
 }
 
-body {
+/* body {
   background-color: #f8f9fa;
   min-height: 100vh;
   overflow-x: hidden;
+} */
+
+.content {
+  display: flex;
+  flex-direction: column;
+  width: 50vw;
+  height: 100vh;
+  margin: 0;
+  background-color: #0a1a4f;
+  color: #ffffff;
+  position: relative;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande',
+    'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+/* 상단 네브바 */
+
+.nav-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 80px;
+  width: 64%;
+  box-sizing: border-box;
+  position: absolute;
+  z-index: 100;
+}
+
+.logo {
+  font-size: 20px;
+  font-weight: 700;
+  text-decoration: none;
+  color: #fff;
+}
+
+.nav-bar ul {
+  position: absolute;
+  top: -37px;
+  left: 14px;
+  display: flex;
+  gap: 20px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+.nav-bar ul a {
+  text-decoration: none;
+  color: #0a1a4f;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.user-menu {
+  position: relative;
+}
+
+.logout-menu {
+  display: none;
+  position: absolute;
+  top: 27px;
+  right: 0;
+  text-align: center;
+  background-color: #0a1a4f;
+  border-radius: 5px;
+  min-width: 86px;
+  z-index: 100;
+  font-size: 14px;
+}
+.logout-menu a {
+  display: block;
+  padding: 5px 0 !important;
+  text-decoration: none;
+  font-weight: 600;
+  color: #ffffff !important;
+}
+
+.logout-menu a:hover {
+  border-color: white;
+  box-shadow: 0 0 8px 2px rgba(178, 178, 178, 0.8);
+  border-radius: 5px;
+}
+
+h1 {
+  font-size: 24px;
+  font-weight: bold;
+  padding-bottom: 20px;
+  margin: 0;
+}
+.containerstop {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.main-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.radio-btn {
+  display: flex;
+  width: 250px;
+  justify-content: space-between;
+}
+
+.stopwatch-watch {
+  font-family: monospace;
+  font-size: 5em;
+  font-weight: bold;
+  padding: 20px;
+}
+
+.stopwatch-buttons {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  padding-top: 10px;
+}
+.stopwatch-buttons button {
+  background-color: white;
+  border: 1px solid white;
+  box-shadow: none;
+  border-radius: 20px;
+  cursor: pointer;
+  padding: 5px 15px;
+  color: #0a1a4f;
+  font-weight: bold;
+}
+
+.stopwatch-buttons button:hover {
+  background-color: #ffd700;
+  border-color: #ffd700;
+  transition: 0.3s ease;
+}
+
+/* 타이머로 바뀌는 버튼 */
+.timer-btn {
+  position: absolute;
+  right: 80px;
+  bottom: 150px;
+}
+
+.timer-btn button {
+  background-color: #0a1a4f;
+  border: 1px solid white;
+  box-shadow: none;
+  border-radius: 20px;
+  cursor: pointer;
+  padding: 5px 15px;
+  margin-left: 10px;
+  color: #fff;
+  font-weight: bold;
+}
+
+.timer-btn button:hover {
+  color: #ffd700;
+  border-color: #ffd700;
+  transform: scale(1.1);
+  transition: 0.3s ease;
+}
+
+.fa-play {
+  font-size: 10px;
+  margin-left: 5px;
+}
+
+.footer-container {
+  display: flex;
+  flex-direction: column;
+}
+
+/* footer */
+
+.first-footer {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  font-size: 16px;
+  margin-bottom: 4px;
+}
+
+.first-footer i:hover {
+  cursor: pointer;
+}
+.second-footer {
+  display: flex;
+  justify-content: center;
+}
+
+.second-footer ul {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  padding-left: 0;
+}
+
+.second-footer ul li,
+a {
+  text-decoration: none;
+  list-style: none;
+  color: #fff;
+}
+
+.second-footer a:hover {
+  border-bottom: 1px solid #fff;
+  /* color: #ffd700; */
+}
+
+.second-footer {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  font-size: 12px;
+  padding: 0;
+}
+
+.third-footer {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 15px;
+  color: #949494;
+  font-size: 10px;
 }
 
 /* 메인 컨테이너 */
 .container {
-  max-width: 100vw;
+  width: 50vw;
   min-height: 100vh;
-  background-color: #f8f9fa;
-  position: relative;
+  background-color: #ffffff;
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 60px 20px;
 }
 
 /* 헤더 */
@@ -59,30 +288,6 @@ body {
   position: relative;
 }
 
-.logout-menu {
-  display: none;
-  position: absolute;
-  top: 20px;
-  right: 0;
-  text-align: center;
-  background-color: #0a1a4f;
-  border-radius: 5px;
-  padding: 1px 0;
-  min-width: 100px;
-  z-index: 100;
-  font-size: 14px;
-}
-.logout-menu a {
-  display: block;
-  padding: 4px 15px;
-  text-decoration: none;
-  color: white;
-}
-
-.logout-menu a:hover {
-  color: #ffd700;
-}
-
 /* 날짜 네비게이션 */
 .date-nav {
   display: flex;
@@ -111,11 +316,11 @@ body {
 }
 
 .date-arrow.prev {
-  left: 24px;
+  left: 130px;
 }
 
 .date-arrow.next {
-  right: 24px;
+  right: 130px;
 }
 
 .current-date {
@@ -128,7 +333,7 @@ body {
 
 /* 투두 리스트 */
 .todo-content {
-  padding: 0 24px 120px;
+  padding: 0 0 120px;
   min-height: calc(100vh - 200px);
 }
 
@@ -137,7 +342,7 @@ body {
   align-items: center;
   background-color: white;
   border-radius: 12px;
-  padding: 16px 20px;
+  padding: 16px 0;
   margin-bottom: 12px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
   transition: all 0.2s;
@@ -190,7 +395,7 @@ body {
 }
 
 .todo-checkbox.checked::after {
-  content: "✓";
+  content: '✓';
   color: white;
   font-size: 14px;
   font-weight: bold;
@@ -243,7 +448,7 @@ body {
 .delete-btn {
   color: #999;
   cursor: pointer;
-  padding: 8px;
+  padding-right: 20px;
   transition: color 0.2s;
 }
 
@@ -255,7 +460,7 @@ body {
 .floating-btn {
   position: fixed;
   bottom: 40px;
-  left: 50%;
+  left: 74%;
   transform: translateX(-50%);
   width: 56px;
   height: 56px;
@@ -279,8 +484,8 @@ body {
 .add-modal {
   position: fixed;
   top: 0;
-  left: 0;
-  width: 100%;
+  right: 0;
+  width: 50%;
   height: 100%;
   background-color: #f8f9fa;
   z-index: 2000;
@@ -522,6 +727,90 @@ body {
   background-color: #4a5fa3;
 }
 
+/* 모달 기본 스타일 */
+.add-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.6); /* 배경을 흐리게 처리 */
+  z-index: 2000;
+  transform: translateY(100%); /* 처음에는 아래쪽으로 숨김 */
+  transition: transform 0.3s ease-in-out;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.add-modal.active {
+  transform: translateY(0); /* 모달이 보이도록 변경 */
+}
+
+/* 모달 내부 스타일 */
+.add-form {
+  width: 100%;
+  max-width: 800px; /* 최대 크기 설정 */
+  background-color: #f8f9fa; /* 밝은 배경 */
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1); /* 그림자 추가 */
+  overflow-y: auto; /* 내용이 많아지면 스크롤 */
+  height: 90%;
+}
+
+/* 제목 및 입력 폼 스타일 */
+.form-title {
+  background-color: #e6ecff;
+  padding: 16px;
+  border-radius: 8px;
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.form-title input {
+  background: transparent;
+  border: none;
+  outline: none;
+  font-size: 16px;
+  color: #333;
+  flex: 1;
+  margin-right: 12px;
+}
+
+/* 카테고리 선택 */
+.category-dropdown {
+  appearance: none;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 14px;
+  color: white;
+  background-color: #5b73c1;
+  cursor: pointer;
+}
+
+/* 닫기 버튼 */
+.close-modal-btn {
+  background-color: #5b73c1;
+  color: white;
+  width: 56px;
+  height: 56px;
+  border: none;
+  border-radius: 50%;
+  font-size: 24px;
+  cursor: pointer;
+  box-shadow: 0 4px 16px rgba(91, 115, 193, 0.4);
+  transition: all 0.2s;
+  margin: 20px auto 0;
+}
+
+.close-modal-btn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 20px rgba(91, 115, 193, 0.5);
+}
+
 /* 반응형 */
 @media (max-width: 480px) {
   .header {
@@ -658,7 +947,6 @@ body {
 
 @media (min-width: 1025px) {
   .container {
-    max-width: 500px;
     margin: 0 auto;
     border-left: 1px solid #eee;
     border-right: 1px solid #eee;
