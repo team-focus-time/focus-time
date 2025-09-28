@@ -976,9 +976,6 @@ a {
 }
 
 @media (min-width: 1440px) {
-  .container {
-    max-width: 600px;
-  }
   .form-section {
     padding: 28px;
     min-height: 450px;
