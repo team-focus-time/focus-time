@@ -6,8 +6,8 @@ body {
   background-color: #0a1a4f;
   color: #ffffff;
   position: relative;
-  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
-    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande',
+    'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 /* 상단 네브바 */
 
@@ -50,27 +50,31 @@ body {
 .logout-menu {
   display: none;
   position: absolute;
-  top: 25px;
+  top: 27px;
   right: 0;
   text-align: center;
-  background-color: #000000;
+  background-color: white;
   border-radius: 5px;
-  padding: 5px 0;
-  min-width: 100px;
+  min-width: 86px;
   z-index: 100;
   font-size: 14px;
 }
 .logout-menu a {
   display: block;
-  padding: 8px 15px;
+  padding: 5px 0 !important;
   text-decoration: none;
+  font-weight: 600;
+  color: #0a1a4f !important;
 }
 
 .logout-menu a:hover {
-  color: #ffd700;
+  border-color: white;
+  box-shadow: 0 0 8px 2px rgba(178, 178, 178, 0.8);
+  border-radius: 5px;
 }
 
 h1 {
+  font-size: 24px;
   font-weight: bold;
   padding-bottom: 20px;
   margin: 0;
@@ -168,14 +172,12 @@ h1 {
   display: flex;
   justify-content: center;
   gap: 20px;
-  font-size: 20px;
+  font-size: 16px;
+  margin-bottom: 4px;
 }
 
 .first-footer i:hover {
-  color: #ffd700;
   cursor: pointer;
-  transform: scale(1.2);
-  transition: 0.3s ease;
 }
 .second-footer {
   display: flex;
@@ -204,7 +206,7 @@ a {
   display: flex;
   align-items: center;
   gap: 20px;
-  font-size: 14px;
+  font-size: 12px;
   padding: 0;
 }
 
@@ -213,7 +215,7 @@ a {
   justify-content: center;
   margin-bottom: 15px;
   color: #949494;
-  font-size: small;
+  font-size: 10px;
 }
 
 @media (max-width: 768px) {
