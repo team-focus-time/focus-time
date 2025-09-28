@@ -1,13 +1,10 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ko">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Focus Time - TodoList</title>
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-    />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
     <link rel="stylesheet" href="TodoList.css" />
   </head>
   <body>
@@ -15,19 +12,11 @@
       <!-- 헤더 -->
       <div class="header">
         <div class="header-left">
-          <a href="../todolist/TodoList.html"
-            ><i class="fa-solid fa-list"></i></i
-          ></a>
-          <a href="../history/index.html"
-            ><i class="fa-solid fa-chart-simple"></i
-          ></a>
-          <div class="user-menu">
-          <a href="../login/Login.html" id="user-logout" 
-            ><i class="fa-solid fa-circle-user"></i
-          ></a><div class="logout-menu" id="logout-menu"><a href="#">로그아웃</a></div>
-            </div>
+          <i class="fas fa-bars header-icon"></i>
+          <i class="fas fa-chart-bar header-icon"></i>
+          <i class="fas fa-cog header-icon"></i>
         </div>
-        
+        <i class="fas fa-times close-btn"></i>
       </div>
 
       <!-- 날짜 네비게이션 -->
@@ -75,27 +64,11 @@
                 <span class="section-title">Set Time</span>
               </div>
               <div class="time-section">
-                <div class="time-display-large" id="timeDisplayLarge">
-                  00:00
-                </div>
+                <div class="time-display-large" id="timeDisplayLarge">00:00</div>
                 <div class="time-inputs">
-                  <input
-                    type="number"
-                    class="time-input"
-                    id="hoursInput"
-                    min="0"
-                    max="23"
-                    value="0"
-                  />
+                  <input type="number" class="time-input" id="hoursInput" min="0" max="23" value="0" />
                   <span>:</span>
-                  <input
-                    type="number"
-                    class="time-input"
-                    id="minutesInput"
-                    min="0"
-                    max="59"
-                    value="0"
-                  />
+                  <input type="number" class="time-input" id="minutesInput" min="0" max="59" value="0" />
                 </div>
                 <div class="time-controls">
                   <button class="time-control-btn" id="hoursUpBtn">
@@ -124,8 +97,6 @@
         </div>
       </div>
     </div>
-
-    
 
     <script src="TodoList.js"></script>
   </body>
