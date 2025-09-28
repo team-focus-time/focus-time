@@ -1,26 +1,36 @@
-const start = document.getElementById("start");
-const stop = document.getElementById("stop");
-const reset = document.getElementById("reset");
-const timer = document.getElementById("timer");
-const setTimeBtn = document.getElementById("set-time");
-const minuteInput = document.getElementById("minute-input");
-const stopwatchPage = document.getElementById("stopwatch-page");
+const currentUser = localStorage.getItem('currentUser');
 
-const alarm = document.getElementById("alarm-notification");
-const stopAlarm = document.getElementById("stop-alarm");
+const start = document.getElementById('start');
+const stop = document.getElementById('stop');
+const reset = document.getElementById('reset');
+const timer = document.getElementById('timer');
+const setTimeBtn = document.getElementById('set-time');
+const minuteInput = document.getElementById('minute-input');
+const stopwatchPage = document.getElementById('stopwatch-page');
 
-const userIcon = document.getElementById("user-logout");
-const logoutMenu = document.getElementById("logout-menu");
+const alarm = document.getElementById('alarm-notification');
+const stopAlarm = document.getElementById('stop-alarm');
 
-userIcon.addEventListener("click", function (e) {
+const userIcon = document.getElementById('user-logout');
+const logoutMenu = document.getElementById('logout-menu');
+const logoutBtn = document.getElementById('logout-btn');
+
+// 로그아웃 메뉴 토글
+userIcon.addEventListener('click', function (e) {
   e.preventDefault();
   logoutMenu.style.display =
-    logoutMenu.style.display === "block" ? "none" : "block";
+    logoutMenu.style.display === 'block' ? 'none' : 'block';
 });
 
-document.addEventListener("click", function (e) {
-  if (!userIcon.contains(e.target) && !dropdownMenu.contains(e.target)) {
-    dropdownMenu.style.display = "none";
+logoutBtn.addEventListener('click', function () {
+  // 로컬스토리지에서 로그인 관련 데이터 삭제
+  localStorage.removeItem('currentUser');
+  window.location.href = '../login/Login.html';
+});
+
+document.addEventListener('click', function (e) {
+  if (!userIcon.contains(e.target) && !logoutMenu.contains(e.target)) {
+    logoutMenu.style.display = 'none';
   }
 });
 
@@ -28,16 +38,16 @@ let timeSet = 1800;
 let interval;
 
 let alarmAudio = new Audio(
-  "../assets/alarms/826685__madgravitystudio__daiquiri-please.wav"
+  '../assets/alarms/826685__madgravitystudio__daiquiri-please.wav'
 );
 alarmAudio.loop = false;
 
 const updateTimer = () => {
   const minutes = Math.floor(timeSet / 60);
   const seconds = timeSet % 60;
-  timer.innerHTML = `${minutes.toString().padStart(2, "0")}:${seconds
+  timer.innerHTML = `${minutes.toString().padStart(2, '0')}:${seconds
     .toString()
-    .padStart(2, "0")}`;
+    .padStart(2, '0')}`;
 };
 
 // const getAlarmUrl = async () => {
@@ -72,8 +82,8 @@ const startTimer = () => {
     updateTimer();
     if (timeSet <= 0) {
       clearInterval(interval);
-      alarm.style.display = "flex";
-      stopwatchPage.style.display = "none";
+      alarm.style.display = 'flex';
+      stopwatchPage.style.display = 'none';
       alarmAudio.play();
       timeSet = 1800;
       updateTimer();
@@ -92,35 +102,35 @@ const resetTimer = () => {
 const setUserTime = () => {
   const minutes = parseInt(minuteInput.value, 10);
   if (isNaN(minutes) || minutes < 1 || minutes > 60) {
-    alert("시간은 최소 1분, 최대 60분까지만 설정할 수 있습니다.");
+    alert('시간은 최소 1분, 최대 60분까지만 설정할 수 있습니다.');
     return;
   }
 
   clearInterval(interval);
   timeSet = minutes * 60;
   updateTimer();
-  minuteInput.value = "";
+  minuteInput.value = '';
 };
 
-stopAlarm.addEventListener("click", () => {
+stopAlarm.addEventListener('click', () => {
   if (alarmAudio) {
     alarmAudio.pause();
     alarmAudio.currentTime = 0;
   }
-  alarm.style.display = "none";
-  stopwatchPage.style.display = "inline-block";
+  alarm.style.display = 'none';
+  stopwatchPage.style.display = 'inline-block';
 });
 
-start.addEventListener("click", startTimer);
-stop.addEventListener("click", stopTimer);
-reset.addEventListener("click", resetTimer);
-setTimeBtn.addEventListener("click", setUserTime);
-stopwatchPage.addEventListener("click", () => {
-  window.location.href = "../stopwatch/StopWatch.html";
+start.addEventListener('click', startTimer);
+stop.addEventListener('click', stopTimer);
+reset.addEventListener('click', resetTimer);
+setTimeBtn.addEventListener('click', setUserTime);
+stopwatchPage.addEventListener('click', () => {
+  window.location.href = '../stopwatch/StopWatch.html';
 });
 
-minuteInput.addEventListener("keydown", (event) => {
-  if (event.key === "Enter") {
+minuteInput.addEventListener('keydown', (event) => {
+  if (event.key === 'Enter') {
     setUserTime();
   }
 });

@@ -239,6 +239,10 @@ h2 {
   .input-wrapper input::placeholder {
     font-size: 14px;
   }
+  .error {
+    width: 85%;
+    text-align: left;
+  }
   .pw-wrapper {
     align-items: center;
   }
