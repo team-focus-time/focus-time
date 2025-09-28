@@ -222,35 +222,35 @@
 ## 📂 프로젝트 구조 및 기타
 
 ```
-📂 focus-time
-┣ 📁 .github
-┣ 📁 assets
-┃ ┣ 📁 alarms
-┃ ┣ 📁 fonts
-┃ ┗ 📁 images
-┣ 🗂️ history
-┃ ┣ ⚡ app.js
-┃ ┣ 🌐 index.html
-┃ ┗ 🎨 style.css
-┣ 🔑 login
-┃ ┣ 🎨 Login.css
-┃ ┣ 🌐 Login.html
-┃ ┗ ⚡ Login.js
-┣ 📝 register
-┃ ┣ 🎨 Register.css
-┃ ┣ 🌐 Register.html
-┃ ┗ ⚡ Register.js
-┣ ⏱️ stopwatch
-┃ ┣ 🎨 StopWatch.css
-┃ ┣ 🌐 StopWatch.html
-┃ ┗ ⚡ StopWatch.js
-┣ ⏰ timer
-┃ ┣ 🎨 Timer.css
-┃ ┣ 🌐 Timer.html
-┃ ┗ ⚡ Timer.js
-┗ 📒 todolist
-┣ 🎨 TodoList.css
-┣ 🌐 TodoList.html
-┣ ⚡ TodoList.js
-┗ 🌐 index.html
+📁 focus-time
+├── 📁 .github
+├── 📁 assets
+├── ├── 📁 alarms
+├── ├── 📁 fonts
+├── ├── 📁 images
+├── 🗂️ history              // 대시보드
+├── ├── ⚡ app.js
+├── ├── 🌐 index.html
+├── ├── 🎨 style.css
+├── 🔑 login                // 로그인
+├── ├── ⚡ Login.js
+├── ├── 🌐 Login.html
+├── ├── 🎨 Login.css
+├── 📝 register             // 회원 가입
+├── ├── ⚡ Register.js
+├── ├── 🌐 Register.html
+├── ├── 🎨 Register.css
+├── ⏱️ stopwatch            // 스탑 워치
+├── ├── ⚡ StopWatch.js
+├── ├── 🌐 StopWatch.html
+├── ├── 🎨 StopWatch.css
+├── ⏰ timer                // 타이머
+├── ├── ⚡ Timer.js
+├── ├── 🌐 Timer.html
+├── ├── 🎨 Timer.css
+├── 📒 todolist             // 투두리스트
+├── ├── ⚡ TodoList.js
+├── ├── 🌐 TodoList.html
+├── ├── 🎨 TodoList.css
+├── 📒 index.html           // 인트로 페이지
 ```
