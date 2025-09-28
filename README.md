@@ -131,10 +131,12 @@
 ### 🔐 로그인 & 회원가입
 
 ![로그인&회원가입](https://github.com/user-attachments/assets/51d52100-4b0c-45d6-ac4d-0180f0512ee2)
+![로그아웃](https://github.com/user-attachments/assets/558b2ccf-efee-477c-83bf-2018844c21df)
 
 - 이름, 계정, 비밀번호을 입력하여 회원가입이 가능합니다.
 - 비밀번호는 **영문자(대/소문자) + 숫자 8자리 이상**의 조합으로 설정하도록 유효성 검증을 합니다.
 - 비밀번호 설정 시 설정된 비밀번호를 공개/비공개 할 수 있습니다.
+- 로그아웃 시 다시 로그인 화며으로 이동합니다.
 - 가입 완료 시 모달창이 뜨면서 로그인에 성공합니다.
 
 ---
@@ -152,8 +154,8 @@
 
 ### ✅ 투두 리스트
 
-![투두리스트1](https://github.com/user-attachments/assets/6c4c3b78-310f-429a-9bac-3c11dec9e4b9)
-![투두리스트2](https://github.com/user-attachments/assets/c217b080-f0ce-44a8-8e4e-4742489d8fbe)
+![투두리스트1](https://github.com/user-attachments/assets/8a6fca4f-bc6c-465e-a1fd-f8fa179aaedf)
+![투두리스트2](https://github.com/user-attachments/assets/3870444d-bfe2-452c-bf63-64e367e062ee)
 
 - 투두리스트 탭으로 이동하게 되면 현재 날짜로 자동 필터링 됩니다.
 - 사용자는 날짜를 선택하여 투두리스트를 등록할 수 있으며 3개의 카테고리 선택이 가능합니다.
@@ -169,6 +171,11 @@
 
 ### 📊 Dashboard
 
+<<<<<<< HEAD
+=======
+![대시보드](https://github.com/user-attachments/assets/8d7eeb5a-3b2c-4cc8-adae-3e02f731c924)
+
+>>>>>>> fef9861f42fc835dfe2036c77f07e113aa40555c
 - 타이머, 스톱워치, 투두리스트 이력을 **주간/월간/연간** 으로 확인 할 수 있습니다.
 - **목표 달성 시간, 전체 집중한 시간, 프로젝트 시간 비율을 그래프로 그려줍니다.**
 
