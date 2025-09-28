@@ -1,23 +1,96 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ko">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Focus Time - TodoList</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
     <link rel="stylesheet" href="TodoList.css" />
   </head>
   <body>
-    <div class="container">
-      <!-- 헤더 -->
-      <div class="header">
-        <div class="header-left">
-          <i class="fas fa-bars header-icon"></i>
-          <i class="fas fa-chart-bar header-icon"></i>
-          <i class="fas fa-cog header-icon"></i>
-        </div>
-        <i class="fas fa-times close-btn"></i>
+    <nav class="nav-bar">
+    <div><a class="logo" href="../stopwatch/StopWatch.html">Focus Time</a></div>
+    
+  </nav>
+    <div class="content">
+    <div class="containerstop">
+      <h1>STOPWATCH</h1>
+      <div class="radio-btn">
+        <label
+          ><input type="radio" name="stopOption" value="mousemove" checked />
+          마우스 모션 스탑</label
+        >
+        <label
+          ><input type="radio" name="stopOption" value="click" /> 버튼
+          스탑</label
+        >
       </div>
+      <div class="main-container">
+        <div class="stopwatch-watch">00:00:00:00</div>
+        <span> </span>
+
+        <div class="stopwatch-buttons">
+          <button class="startBtn" onclick="start()">START</button>
+          <button class="pauseBtn" onclick="pause()">STOP</button>
+          <button class="resetBtn" onclick="reset()">RESET</button>
+        </div>
+      </div>
+      <div class="timer-btn">
+        <button id="timer-page">Timer <i class="fa-solid fa-play"></i></button>
+      </div>
+    </div>
+
+    <footer class="footer">
+    <div class="footer-container">
+      <div class="first-footer">
+          <i class="fa-brands fa-facebook"></i>
+          <i class="fa-brands fa-twitter"></i>
+          <i class="fa-brands fa-instagram"></i>
+        </div>
+      </div>
+      <div class="second-footer">
+        <ul>
+              <li><a href="#">HOME</a></li>
+              <li><a href="#">TERMS OF USE</a></li>
+              <li> <a href="#">PRIVACY</a></li>
+              <li><a href="#">COMMERCE</a></li>
+              <li><a href="#">NOONA GROUP</a></li>
+              <li><a href="../index.html">ABOUT US</a></li>
+          </ul>
+      </div>
+      <div class="third-footer">
+        Copyright © Noona JavaScript PR3 2025 All Rights Reserved.
+      </div>
+      </div>
+      
+    </div>
+  </footer>
+    
+    </div>
+    <div class="container">
+      <nav class="nav-bar">
+    <ul>
+      <li>
+        <a href="../todolist/TodoList.html"
+          ><i class="fa-solid fa-list"></i
+        ></a>
+      </li>
+      <li>
+        <a href="../history/index.html"
+          ><i class="fa-solid fa-chart-simple"></i
+        ></a>
+      </li>
+      <li class="user-menu">
+<a href="#" id="user-logout"><i class="fa-solid fa-circle-user"></i></a>
+<div class="logout-menu" id="logout-menu">
+  <a href="#" id="logout-btn">Logout</a>
+</div>
+</li>
+    </ul>
+  </nav>
 
       <!-- 날짜 네비게이션 -->
       <div class="date-nav">
@@ -64,11 +137,27 @@
                 <span class="section-title">Set Time</span>
               </div>
               <div class="time-section">
-                <div class="time-display-large" id="timeDisplayLarge">00:00</div>
+                <div class="time-display-large" id="timeDisplayLarge">
+                  00:00
+                </div>
                 <div class="time-inputs">
-                  <input type="number" class="time-input" id="hoursInput" min="0" max="23" value="0" />
+                  <input
+                    type="number"
+                    class="time-input"
+                    id="hoursInput"
+                    min="0"
+                    max="23"
+                    value="0"
+                  />
                   <span>:</span>
-                  <input type="number" class="time-input" id="minutesInput" min="0" max="59" value="0" />
+                  <input
+                    type="number"
+                    class="time-input"
+                    id="minutesInput"
+                    min="0"
+                    max="59"
+                    value="0"
+                  />
                 </div>
                 <div class="time-controls">
                   <button class="time-control-btn" id="hoursUpBtn">
@@ -97,6 +186,8 @@
         </div>
       </div>
     </div>
+
+    
 
     <script src="TodoList.js"></script>
   </body>
