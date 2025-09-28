@@ -3,7 +3,8 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, sans-serif;
 }
 
 body {
@@ -29,6 +30,11 @@ body {
   background-color: #f8f9fa;
 }
 
+.header-left a {
+  text-decoration: none;
+  color: #0a1a4f;
+}
+
 .header-left {
   display: flex;
   gap: 16px;
@@ -46,6 +52,35 @@ body {
 .header-icon:hover,
 .close-btn:hover {
   color: #333;
+}
+
+/* 상단 메뉴바 - 로그아웃 */
+.user-menu {
+  position: relative;
+}
+
+.logout-menu {
+  display: none;
+  position: absolute;
+  top: 20px;
+  right: 0;
+  text-align: center;
+  background-color: #0a1a4f;
+  border-radius: 5px;
+  padding: 1px 0;
+  min-width: 100px;
+  z-index: 100;
+  font-size: 14px;
+}
+.logout-menu a {
+  display: block;
+  padding: 4px 15px;
+  text-decoration: none;
+  color: white;
+}
+
+.logout-menu a:hover {
+  color: #ffd700;
 }
 
 /* 날짜 네비게이션 */
@@ -251,6 +286,9 @@ body {
   z-index: 2000;
   transform: translateY(100%);
   transition: transform 0.3s ease-in-out;
+
+  display: flex;
+  justify-content: center;
 }
 
 .add-modal.active {
@@ -259,11 +297,14 @@ body {
 
 .add-form {
   padding: 24px;
-  height: 100vh;
-  overflow-y: scroll;
+  height: auto;
+  overflow-y: auto;
   -webkit-overflow-scrolling: touch;
   display: flex;
   flex-direction: column;
+  width: 90%;
+  max-width: 1000px;
+  max-height: 100vh;
 }
 
 .form-title {
@@ -291,6 +332,10 @@ body {
 }
 
 .category-dropdown {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  text-align: center;
   border: none;
   padding: 8px 16px;
   border-radius: 20px;
@@ -315,6 +360,8 @@ body {
 .close-modal-btn {
   width: 56px;
   height: 56px;
+  min-width: 56px;
+  min-height: 56px;
   background-color: #5b73c1;
   color: white;
   border: none;
@@ -335,7 +382,7 @@ body {
   display: flex;
   gap: 20px;
   margin-bottom: 24px;
-  flex: 1;
+  align-items: stretch;
 }
 
 .form-section {
@@ -344,6 +391,10 @@ body {
   padding: 20px;
   border-radius: 12px;
   height: fit-content;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .section-header {
@@ -504,9 +555,20 @@ body {
   .form-sections {
     flex-direction: column;
     gap: 16px;
+    align-items: center;
   }
   .form-section {
+    width: 100%;
+    max-width: 350px;
     padding: 16px;
+  }
+
+  .time-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
   }
   .time-display-large {
     font-size: 24px;
@@ -537,12 +599,32 @@ body {
     padding: 20px;
   }
   .form-sections {
-    gap: 20px;
+    flex-direction: column;
+    align-items: center;
   }
   .form-section {
-    padding: 24px;
-    min-height: 400px;
+    width: 100%;
+    max-width: 400px;
+    aspect-ratio: 1 / 1;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
   }
+
+  .calendar-grid {
+    width: 100%;
+    height: 100%;
+  }
+
+  .time-section {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
   .time-display-large {
     font-size: 32px;
   }

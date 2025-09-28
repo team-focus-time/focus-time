@@ -9,6 +9,21 @@ const stopwatchPage = document.getElementById("stopwatch-page");
 const alarm = document.getElementById("alarm-notification");
 const stopAlarm = document.getElementById("stop-alarm");
 
+const userIcon = document.getElementById("user-logout");
+const logoutMenu = document.getElementById("logout-menu");
+
+userIcon.addEventListener("click", function (e) {
+  e.preventDefault();
+  logoutMenu.style.display =
+    logoutMenu.style.display === "block" ? "none" : "block";
+});
+
+document.addEventListener("click", function (e) {
+  if (!userIcon.contains(e.target) && !dropdownMenu.contains(e.target)) {
+    dropdownMenu.style.display = "none";
+  }
+});
+
 let timeSet = 1800;
 let interval;
 

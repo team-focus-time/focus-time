@@ -60,6 +60,7 @@ btnRegister.addEventListener('click', function () {
 function showAlert(message) {
   const alertWrapper = document.getElementById('alert');
   const alertYes = document.getElementById('alert-yes');
+  const alertNo = document.getElementById('alert-no');
   const messageMain = document.getElementById('message-main');
 
   messageMain.textContent = message;
@@ -67,14 +68,21 @@ function showAlert(message) {
 
   const newAlertYes = alertYes.cloneNode(true);
   alertYes.replaceWith(newAlertYes);
+  const newAlertNo = alertNo.cloneNode(true);
+  alertNo.replaceWith(newAlertNo);
 
   const goStopwatch = () => {
     alertWrapper.style.display = 'none';
     window.location.replace('/register/Register.html');
     document.removeEventListener('keydown', handleEnter);
   };
-
   newAlertYes.addEventListener('click', goStopwatch);
+
+  const closeAlert = () => {
+    alertWrapper.style.display = 'none';
+    document.removeEventListener('keydown', handleEnter);
+  };
+  newAlertNo.addEventListener('click', closeAlert);
 
   const handleEnter = (e) => {
     if (e.key === 'Enter') {

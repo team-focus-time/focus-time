@@ -6,15 +6,16 @@ body {
   background-color: #0a1a4f;
   color: #ffffff;
   position: relative;
-  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
-    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande',
+    'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
+/* 상단 네브바 */
 
 .nav-bar {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 20px 60px;
+  padding: 20px 80px;
   width: 100%;
   box-sizing: border-box;
 }
@@ -42,7 +43,38 @@ body {
   box-sizing: border-box;
 }
 
+.user-menu {
+  position: relative;
+}
+
+.logout-menu {
+  display: none;
+  position: absolute;
+  top: 27px;
+  right: 0;
+  text-align: center;
+  background-color: white;
+  border-radius: 5px;
+  min-width: 86px;
+  z-index: 100;
+  font-size: 14px;
+}
+.logout-menu a {
+  display: block;
+  padding: 5px 0 !important;
+  text-decoration: none;
+  font-weight: 600;
+  color: #0a1a4f !important;
+}
+
+.logout-menu a:hover {
+  border-color: white;
+  box-shadow: 0 0 8px 2px rgba(178, 178, 178, 0.8);
+  border-radius: 5px;
+}
+
 h1 {
+  font-size: 24px;
   font-weight: bold;
   padding-bottom: 20px;
   margin: 0;
@@ -92,10 +124,17 @@ h1 {
   font-weight: bold;
 }
 
+.stopwatch-buttons button:hover {
+  background-color: #ffd700;
+  border-color: #ffd700;
+  transition: 0.3s ease;
+}
+
+/* 타이머로 바뀌는 버튼 */
 .timer-btn {
   position: absolute;
-  right: 60px;
-  bottom: 50px;
+  right: 80px;
+  bottom: 150px;
 }
 
 .timer-btn button {
@@ -109,7 +148,93 @@ h1 {
   color: #fff;
   font-weight: bold;
 }
+
+.timer-btn button:hover {
+  color: #ffd700;
+  border-color: #ffd700;
+  transform: scale(1.1);
+  transition: 0.3s ease;
+}
+
 .fa-play {
   font-size: 10px;
   margin-left: 5px;
+}
+
+.footer-container {
+  display: flex;
+  flex-direction: column;
+}
+
+/* footer */
+
+.first-footer {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  font-size: 16px;
+  margin-bottom: 4px;
+}
+
+.first-footer i:hover {
+  cursor: pointer;
+}
+.second-footer {
+  display: flex;
+  justify-content: center;
+}
+
+.second-footer ul {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+}
+
+.second-footer ul li,
+a {
+  text-decoration: none;
+  list-style: none;
+  color: #fff;
+}
+
+.second-footer a:hover {
+  border-bottom: 1px solid #fff;
+  /* color: #ffd700; */
+}
+
+.second-footer {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  font-size: 12px;
+  padding: 0;
+}
+
+.third-footer {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 15px;
+  color: #949494;
+  font-size: 10px;
+}
+
+@media (max-width: 768px) {
+  .timer-btn {
+    position: static;
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
+  }
+
+  .first-footer {
+    margin-top: 20px;
+    align-items: center;
+  }
+  .second-footer ul {
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    padding: 0;
+    font-size: small;
+  }
 }

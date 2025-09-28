@@ -9,7 +9,7 @@
   </head>
   <body>
     <nav class="nav-bar">
-      <div><a class="logo" href="../login/Login.html">Focus Time</a></div>
+      <div><a class="logo" href="../stopwatch/StopWatch.html">Focus Time</a></div>
       <ul>
         <li>
           <a href="../todolist/TodoList.html"
@@ -21,11 +21,12 @@
             ><i class="fa-solid fa-chart-simple"></i
           ></a>
         </li>
-        <li>
-          <a href="../login/Login.html"
-            ><i class="fa-solid fa-circle-user"></i
-          ></a>
-        </li>
+        <li class="user-menu">
+  <a href="#" id="user-logout"><i class="fa-solid fa-circle-user"></i></a>
+  <div class="logout-menu" id="logout-menu">
+    <a href="#" id="logout-btn">Logout</a>
+  </div>
+</li>
       </ul>
     </nav>
     <div class="container">
@@ -54,7 +55,34 @@
         <button id="timer-page">Timer <i class="fa-solid fa-play"></i></button>
       </div>
     </div>
-    <footer></footer>
+
+    
+      <footer class="footer">
+      <div class="footer-container">
+        <div class="first-footer">
+            <i class="fa-brands fa-facebook"></i>
+            <i class="fa-brands fa-twitter"></i>
+            <i class="fa-brands fa-instagram"></i>
+          </div>
+        </div>
+        <div class="second-footer">
+          <ul>
+                <li><a href="#">HOME</a></li>
+                <li><a href="#">TERMS OF USE</a></li>
+                <li> <a href="#">PRIVACY</a></li>
+                <li><a href="#">COMMERCE</a></li>
+                <li><a href="#">NOONA GROUP</a></li>
+                <li><a href="../index.html">ABOUT US</a></li>
+            </ul>
+        </div>
+        </div>
+        
+        <div class="third-footer">
+          Copyright © Noona JavaScript PR3 2025 All Rights Reserved.
+        </div>
+      </div>
+    </footer>
+
     <script
       src="https://kit.fontawesome.com/7a65e83fda.js"
       crossorigin="anonymous"
