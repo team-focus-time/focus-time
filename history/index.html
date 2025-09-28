@@ -23,20 +23,12 @@
     </aside>
 
     <main class="right">
-      <nav class="right-icons" aria-hidden="false">
-        <a class="icon" href="http://127.0.0.1:5500/todolist/TodoList.html" title="list" aria-label="todo">
-          <svg width="20" height="20" viewBox="0 0 24 24"><path fill="#222" d="M4 6h16v2H4zM4 11h16v2H4zM4 16h16v2H4z"></path></svg>
-        </a>
-        <a class="icon" href="http://127.0.0.1:5500/history/index.html" title="stats" aria-label="history">
-          <svg width="20" height="20" viewBox="0 0 24 24"><rect x="4" y="10" width="3" height="10" fill="#222"></rect><rect x="10.5" y="6" width="3" height="14" fill="#222"></rect><rect x="17" y="2" width="3" height="18" fill="#222"></rect></svg>
-        </a>
-        <a class="icon" href="http://127.0.0.1:5500/login/Login.html" title="profile" aria-label="profile">
-          <svg width="20" height="20" viewBox="0 0 24 24"><circle cx="12" cy="8" r="3" stroke="#222" stroke-width="1.4" fill="none"></circle><path d="M4 20c0-4 4-7 8-7s8 3 8 7" stroke="#222" stroke-width="1.4" fill="none"></path></svg>
-        </a>
-      </nav>
-
       <div class="topbar">
-        <button class="close-btn" id="globalClose" title="닫기">×</button>
+        <div class="topbar-left">날짜 선택</div>
+        <div class="topbar-right">
+          <button id="chartBtn" class="chart-btn">Chart</button>
+          <button id="globalClose" class="close-btn">×</button>
+        </div>
       </div>
 
       <!-- 기존 그리드 -->

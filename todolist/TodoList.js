@@ -201,7 +201,7 @@ document.addEventListener("DOMContentLoaded", function () {
     return m ? parseInt(m[1],10) : 0;
   }
 
-  // parseDomTasks에서 tag 추출 수정: 'category-tag'를 제외
+  // parseDomTasks에서 tag 추출 수정: 'category-tag'를 제외하고 'category-'로 시작하는 것을 찾음
   function parseDomTasks(){
     const nodes = document.querySelectorAll('.todo-item');
     const tasks = Array.from(nodes).map((node, idx) => {
@@ -745,3 +745,33 @@ function formatTime(hours, minutes) {
   const ampm = hours < 12 ? 'AM' : 'PM';
   return `${h.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')} ${ampm}`;
 }
+
+// 전체 집중 시간 (막대)
+function renderTotalTime(rangeType='day') {
+  // ...기간별로 카테고리별 합계 집계, 막대 차트로 표시...
+}
+
+// 프로젝트 시간 비율 (도넛)
+function renderProjectDonut(rangeType='day') {
+  // ...기간별로 카테고리별 합계 집계, 도넛 SVG로 표시...
+}
+
+// 목표 집중 시간 (게이지)
+function renderGoal(rangeType='day') {
+  // ...기간별 합계/목표 대비 달성률 게이지로 표시...
+}
+
+// 탭 이벤트 연결
+function bindChartTabs(){
+  // 각 카드별 탭 버튼 클릭 시 render 함수 호출
+}
+
+// 초기화 및 이벤트
+document.addEventListener('DOMContentLoaded', ()=>{
+  bindChartTabs();
+  renderTotalTime('day');
+  renderProjectDonut('day');
+  renderGoal('day');
+});
+window.addEventListener('ft-tasks-updated', ()=>{ /* ...차트 갱신... */ });
+window.addEventListener('storage', (e)=>{ if(e.key==='ft_tasks') {/* ...차트 갱신... */} });
