@@ -18,7 +18,8 @@
 
 ## 🗒️ 팀 페이지
 
-[👉 팀 페이지 바로가기](https://www.notion.so/3-2757ec0bf68b80d78139df58a923e3b9)
+[👉 팀 페이지 바로가기](https://www.notion.so/3-2757ec0bf68b80d78139df58a923e3b9)<br>
+[👉 Figma](https://www.figma.com/design/YyIzuRmSY2iS2dzcPF4bAl/focus-time?node-id=0-1&t=CrHLqXgWMkKbRIfV-1)
 
 ## 🔗 배포 주소
 
@@ -167,8 +168,6 @@
 ---
 
 ### 📊 Dashboard
-
-
 
 - 타이머, 스톱워치, 투두리스트 이력을 **주간/월간/연간** 으로 확인 할 수 있습니다.
 - **목표 달성 시간, 전체 집중한 시간, 프로젝트 시간 비율을 그래프로 그려줍니다.**
