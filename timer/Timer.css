@@ -130,7 +130,7 @@ h1 {
 
 .timer-buttons {
   display: flex;
-  gap: 3px;
+  gap: 10px;
   justify-content: center;
   padding-top: 10px;
 }
@@ -141,7 +141,6 @@ h1 {
   border-radius: 20px;
   cursor: pointer;
   padding: 5px 15px;
-  margin-left: 10px;
   color: #0a1a4f;
   font-weight: bold;
 }
@@ -268,22 +267,63 @@ a {
 }
 
 @media (max-width: 768px) {
-  .stopwatch-btn {
-    position: static;
-    display: flex;
-    justify-content: center;
-    margin-bottom: 20px;
+  .nav-bar {
+    padding: 20px 24px;
   }
-
+  h1 {
+    font-size: 20px;
+  }
+  .setting-timer input {
+    font-size: 13px;
+    width: 120px;
+  }
+  .setting-timer button {
+    font-size: 12px;
+  }
+  .stopwatch-watch {
+    font-size: 50px;
+  }
+  .timer-buttons button {
+    font-size: 10px;
+  }
+  .timer-set {
+    font-size: 50px;
+  }
+  .stopwatch-btn {
+    right: 24px;
+  }
   .first-footer {
-    margin-top: 20px;
-    align-items: center;
+    font-size: 14px;
+    margin: 0;
+  }
+  .second-footer {
+    font-size: 10px;
   }
   .second-footer ul {
+    padding: 0;
+    margin: 6px;
+  }
+  .third-footer {
+    font-size: 8px;
+  }
+}
+
+@media (max-width: 768px) {
+  .footer {
+    display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 10px;
-    padding: 0;
-    font-size: small;
+    width: 100%;
+  }
+  .second-footer ul {
+    font-size: 8px;
+    width: 54%;
+    flex-wrap: wrap;
+    text-align: center;
+    justify-content: center;
+    gap: 0;
+  }
+  .second-footer li {
+    padding: 4px;
   }
 }
