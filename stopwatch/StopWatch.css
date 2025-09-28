@@ -9,6 +9,7 @@ body {
   font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
     "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
 }
+/* 상단 네브바 */
 
 .nav-bar {
   display: flex;
@@ -40,6 +41,33 @@ body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+}
+
+.user-menu {
+  position: relative;
+}
+
+.logout-menu {
+  display: none;
+  position: absolute;
+  top: 25px;
+  right: 0;
+  text-align: center;
+  background-color: #000000;
+  border-radius: 5px;
+  padding: 5px 0;
+  min-width: 100px;
+  z-index: 100;
+  font-size: 14px;
+}
+.logout-menu a {
+  display: block;
+  padding: 8px 15px;
+  text-decoration: none;
+}
+
+.logout-menu a:hover {
+  color: #ffd700;
 }
 
 h1 {

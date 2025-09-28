@@ -54,6 +54,35 @@ body {
   color: #333;
 }
 
+/* 상단 메뉴바 - 로그아웃 */
+.user-menu {
+  position: relative;
+}
+
+.logout-menu {
+  display: none;
+  position: absolute;
+  top: 20px;
+  right: 0;
+  text-align: center;
+  background-color: #0a1a4f;
+  border-radius: 5px;
+  padding: 1px 0;
+  min-width: 100px;
+  z-index: 100;
+  font-size: 14px;
+}
+.logout-menu a {
+  display: block;
+  padding: 4px 15px;
+  text-decoration: none;
+  color: white;
+}
+
+.logout-menu a:hover {
+  color: #ffd700;
+}
+
 /* 날짜 네비게이션 */
 .date-nav {
   display: flex;

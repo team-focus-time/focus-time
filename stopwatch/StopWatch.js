@@ -2,6 +2,21 @@ const display = document.querySelector(".stopwatch-watch");
 const stopArea = document.querySelector(".main-container");
 const timerPage = document.getElementById("timer-page");
 
+const userIcon = document.getElementById("user-logout");
+const logoutMenu = document.getElementById("logout-menu");
+
+userIcon.addEventListener("click", function (e) {
+  e.preventDefault();
+  logoutMenu.style.display =
+    logoutMenu.style.display === "block" ? "none" : "block";
+});
+
+document.addEventListener("click", function (e) {
+  if (!userIcon.contains(e.target) && !dropdownMenu.contains(e.target)) {
+    dropdownMenu.style.display = "none";
+  }
+});
+
 let timer = null;
 let startTime = 0;
 let elapsedTime = 0;
