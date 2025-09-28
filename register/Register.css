@@ -182,3 +182,92 @@ h2 {
   border-radius: 5px;
   font-size: 12px;
 }
+
+@media screen and (max-width: 1024px) {
+  .bg-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+  }
+  h1 {
+    position: static;
+    font-size: 45px;
+  }
+  h2 {
+    margin: 0 0 15px 0;
+  }
+  .onboarding {
+    position: static;
+    width: 400px;
+    height: 550px;
+    border-radius: 15px;
+    margin: 0 24px;
+  }
+  .input-wrapper input {
+    width: 340px;
+  }
+  .btn-pw-search {
+    right: -26px;
+  }
+  .btn-login {
+    width: 340px;
+    padding: 12px;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .bg-wrapper {
+    padding: 24px;
+  }
+  h1 {
+    font-size: 35px;
+  }
+  .onboarding {
+    width: 100%;
+  }
+  .input-wrapper {
+    width: 100%;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+  }
+  .input-wrapper input {
+    width: 85%;
+  }
+  .input-wrapper input::placeholder {
+    font-size: 14px;
+  }
+  .pw-wrapper {
+    align-items: center;
+  }
+  .pw-toggle {
+    right: 35px;
+  }
+  .input {
+    width: 98%;
+    align-items: center;
+  }
+  .error {
+    width: 85%;
+    text-align: left;
+  }
+  .search-wrapper {
+    width: 100%;
+    text-align: right;
+  }
+  .btn-pw-search {
+    position: static;
+    font-size: 13px;
+    right: -50px;
+    padding: 12px 30px 0px 0px;
+  }
+  .btn-login {
+    width: 85%;
+    font-size: 17px;
+  }
+  .btn-Register {
+    font-size: 13px;
+  }
+}
